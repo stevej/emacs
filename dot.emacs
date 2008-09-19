@@ -15,6 +15,9 @@
 ;; allow us to look at whitespace
 (require 'whitespace)
 
+;; gist integration
+(require 'gist)
+
 ;; scala-mode
 (add-to-list 'load-path "~/.emacs.d/scala-mode")
 (require 'scala-mode-auto)
