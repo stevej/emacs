@@ -12,6 +12,9 @@
 (require 'show-wspace)
 (add-hook 'font-lock-mode-hook 'show-ws-highlight-tabs)
 
+;; allow us to look at whitespace
+(require 'whitespace)
+
 ;; scala-mode
 (add-to-list 'load-path "~/.emacs.d/scala-mode")
 (require 'scala-mode-auto)
