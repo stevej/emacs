@@ -31,6 +31,10 @@
 (load "thrift")
 (require 'thrift-mode)
 
+;; textile-mode
+(load "textile-mode")
+(add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
+
 ;; ant helper
 (defvar ant-command-history nil
   "Ant command history variable")
