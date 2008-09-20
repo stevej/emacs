@@ -35,6 +35,9 @@
 (load "textile-mode")
 (add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
 
+;; .bashrc should open in sh mode
+(setq auto-mode-alist (cons '("\\.bashrc" . sh-mode) auto-mode-alist))
+
 ;; ant helper
 (defvar ant-command-history nil
   "Ant command history variable")
