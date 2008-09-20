@@ -5,7 +5,7 @@
 (global-auto-revert-mode 1)
 
 (setq default-frame-alist
-      '((font . "-apple-bitstream vera sans mono-medium-r-normal--18-140-72-72-m-140-iso10646-1")))
+      '((font . "-apple-inconsolata-medium-r-normal--20-140-72-72-m-140-iso10646-1")))
 
 ;; kill tabs.
 (add-to-list 'load-path "~/.emacs.d")
@@ -17,6 +17,9 @@
 
 ;; gist integration
 (require 'gist)
+
+;; nxml-mode
+(load "~/.emacs.d/nxml-mode-20041004/rng-auto.el")
 
 ;; scala-mode
 (add-to-list 'load-path "~/.emacs.d/scala-mode")
