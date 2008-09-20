@@ -1,1 +1,7 @@
 My emacs snippets.
+
+cd $HOME
+git clone git://github.com/stevej/emacs.git .emacs.d
+
+put the following into your .emacs
+(load "~/.emacs.d/dot.emacs")
