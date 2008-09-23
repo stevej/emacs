@@ -1,0 +1,11 @@
+-*- text -*-
+
+Here are the current known bugs.
+If you find any other, send it to <monnier+lists.emacs.sml@flint.cs.yale.edu>.
+
+* M-x next-error and other compile.el support doesn't work on XEmacs.
+
+* indentation of a declaration after a long `datatype' is slow.
+
+* buggy indentation samples
+  Try `make test' to see the known problems in testcases.sml

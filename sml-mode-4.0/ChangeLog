@@ -1,0 +1,387 @@
+2004-11-24  Stefan Monnier  <monnier@iro.umontreal.ca>
+
+	* Release version 4.0.
+
+2004-11-23  Stefan Monnier  <monnier@iro.umontreal.ca>
+
+	* sml-mode.el (sml-font-lock-symbols-alist): Add yet more silly entries.
+
+2004-11-15  Stefan Monnier  <monnier@iro.umontreal.ca>
+
+	* sml-mode.el (sml-font-lock-symbols-alist): Add entries for >= and <=.
+	(sml-font-lock-symbols-alist): Add entries for simple type variables.
+	(sml-font-lock-compose-symbol): Add support for non-punctuation syms.
+
+2004-11-14  Stefan Monnier  <monnier@iro.umontreal.ca>
+
+	* Makefile (install_startup): Don't add to load-path any more.
+
+	* sml-proc.el (sml-make-error): Use match-string.
+
+2004-04-21  Stefan Monnier  <monnier@iro.umontreal.ca>
+
+	* sml-proc.el (sml-error-regexp-alist): Use new compile.el features
+	if available.
+	(sml-send-region): Remove unused var `file'.
+	(sml-drag-region): Remove unused function.
+	(sml-update-cursor): Use compilation-fake-loc if available.
+	(compilation-goto-locus): Only advise if necessary.
+
+	* sml-mode.el: Add self to load-path in sml-mode-startup.el.
+	(sml-def-skeleton): Try to use the new `system' abbrev flag.
+
+2004-04-04  Stefan Monnier  <monnier@iro.umontreal.ca>
+
+	* testcases.sml: Add a nasty case that is still wrong.
+
+	* sml-proc.el (sml-error-regexp-alist): Tune the regexp for sml/nj.
+
+	* sml-mode.el (sml-mode): Better handle paragraphs in comments.
+	(sml-mode-variables): Clean up paragraph settings.
+	(sml-electric-pipe): Fix a boundary bug.
+	(sml-indent-starter, sml-get-sym-indent, sml-find-matching-starter):
+	Fix indentation algorithm.  Can't remember what it was about.
+	This code is nasty, I just can't understand what's doing what.
+	(completion-ignored-extensions): Add the new .cm directory.
+
+2003-12-09  Stefan Monnier  <monnier@iro.umontreal.ca>
+
+	* sml-defs.el (sml-mode-menu): Fix typo.  Use std names.
+	(sml-begin-syms-re): Reduce redundancy.
+
+2001-09-18  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* sml-mode.el (sml-tyvarseq-re): Fix typo.
+
+2001-07-20  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* sml-mode.el (sml-rightalign-and): New defcustom.
+	(sml-tyvarseq-re): New var.
+	(sml-font-lock-keywords): Use it.
+	(sml-imenu-create-index): Don't get confused by tyvarseq's.
+	(sml-mode-variables): Don't set `comment-column'.
+	(sml-funname-of-and): New function.
+	(sml-electric-pipe): Use it.
+	(sml-find-comment-indent): Try to ignore comment-markers in strings.
+	(sml-calculate-indentation): Handle closing parens specially.
+	(sml-indent-pipe): Recognize the case where `and' defines a datatype.
+	(sml-dangling-sym): Make it work if the symbol is an open-paren.
+	(sml-indent-default): Change the behavior when preceded by `end',
+	although I'm not quite sure why.
+	Understand dangling open-parens.
+	Properly skip *all* subexpressions of lower precedence.
+	Allow use of sml-symbol-indent to outdent lines starting with , or ;.
+	(sml-insert-form): Use preceding-char to avoid bug at bobp.
+
+2001-07-19  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* sml-proc.el (sml-proc-buffer): Save excursion when calling run-sml.
+
+	* sml-move.el (sml-syntax-prec): Split ; and , from `in' and `with'.
+
+	* sml-mode.texi: Put the entry in `Emacs' rather than `Editors'.
+
+	* sml-mode.spec (BuildArch): Simplify call to `install-info'.
+
+	* sml-defs.el (sml-mode-menu): Add an explicit t for always-active.
+	(sml-symbol-indent): Add entries for , and ; and turn into defcustom.
+
+	* sml-compat.el: Add more stuff.  It might help for Emacs-19.34.
+
+	* makefile.pkg (test): Use elisp files in current dir.
+
+2000-12-24  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* Release version 3.9.5.
+
+	* Makefile (install): Also install .el files.
+	(dist): Don't rely on $CVSROOT.
+
+	* sml-mode.el: Require `skeleton'.
+	(sml-mode): Add the menu for XEmacs.  Make sure @ is a valid skeleton.
+	(sml-comment-indent): Remove.
+	(sml-mode-variables): Don't set comment-indent-function.
+	(sml-def-skeleton): Nop if skeletons aren't available.
+	(skeletons): Use `> _' and `@'.
+	(sml-forms-menu): Don't bother with easy-menu-filter-return crap.
+	(sml-cm-mode-syntax-table, sml-cm-font-lock-keywords): New vars.
+	(sml-cm-mode): Use define-derived-mode rather than define-generic-mode.
+	(sml-lex-font-lock-keywords, sml-lex-font-lock-defaults): New vars.
+	(sml-yacc-font-lock-keywords): Use sml-lex-font-lock-keywords.
+	Refine pattern to recognize the %prec keyword.
+	(sml-yacc-font-lock-defaults): Fix typo.
+
+	* sml-proc.el (inferior-sml-mode): Disable next-error for XEmacs.
+
+	* sml-util.el (defsyntax): Don't forget to eval `doc'.
+
+	* sml-mode.spec: Simplify.
+
+	* sml-defs.el (sml-mode-menu): Remove bogus entry for sml-mode-version.
+
+2000-10-06  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* sml-mode.el: Make the toplevel closer to usual practice.
+	(sml-imenu-regexp, sml-imenu-create-index): New var and fun.
+	(sml-mode): Use them.
+	(sml-beginning-of-defun): Add `and' as function-leader.
+	(sml-lex-mode): New trivial mode.
+	(sml-yacc-bnf-face, sml-yacc-indent-action, sml-yacc-indent-pipe)
+	(sml-yacc-indent-term, sml-yacc-font-lock-keywords)
+	(sml-yacc-font-lock-defaults): New vars.
+	(sml-yacc-indent-line, sml-yacc-indentation, sml-yacc-mode): New funs.
+
+	* sml-mode.texi: Added yours truly to the list of authors.
+
+	* sml-mode.spec: New file.
+
+	* sml-defs.el (sml-outline-regexp): Slightly improved regexp.
+
+2000-08-24  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* sml-proc.el (inferior-sml-mode-map): Don't inherit from sml-bindings.
+	Add the binding for C-c C-l explicitly instead.
+	(sml-run): Look in cwd (but only if the command has slashes).
+
+	* sml-mode.el (sml-mode-abbrev-table): Remove (created by
+	define-derived-mode).
+	(sml-mode): Setup add-log's current-defun-function.
+	(sml-indent-line): Never indent to a negative level.
+	(sml-skip-siblings, sml-beginning-of-defun, sml-max-name-components)
+	(sml-current-fun-name): New funs and vars for add-log support.
+	(sml-comment-indent): Simplify.
+	(sml-def-skeleton): Also create the skeleton as an abbrev.
+	(skeletons): New for "struct", "sig", "val", "fn" and "fun".
+	(sml-electric-space): Rewrite to use abbrev's machinery.
+
+	* sml-defs.el (sml-mode-map): Merge with sml-bindings.
+	(sml-bindings): Remove.
+
+2000-02-22  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* sml-mode.el (sml-find-matching-starter): Use syms instead of a RE.
+	(sml-indent-default): Use symbol membership rather than a regexp.
+	Also, use `sym-indent' instead of (current-column).
+	This fixes a problem with a hanging `structure Foo = (struct|let)'
+	(due to `structure' having a sml-indent-rule, as opposed to `fun').
+	Hopefully it won't introduce other problems.
+	(sml-font-lock-keywords): Match vars `val x : int' also.
+	(sml-electric-pipe): Update to the new `sml-find-matching-starter' and
+	return a sensible default instead of raising an error in case of
+	unexpected situations.
+	(sml-indent-line): Ignore errors and keep the cursor where it is.
+	(sml-calculate-indentation, sml-indent-pipe): Use syms instead of REs.
+
+	* sml-defs.el (sml-starters-re, sml-pipehead-re): Remove.
+
+	* testcases.sml: New file.
+
+	* makefile.pkg (test): New target to run the test suite.
+
+2000-02-18  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* *.el: Pass through checkdoc and use `eval-when-compile' whenever
+	possible for (require 'cl).
+
+2000-02-18  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* sml-util.el (make-temp-dir, make-temp-file, temp-file-dir)
+	(delete-temp-dirs): Replace by the make-temp-file from Emacs-21.
+	(custom-create-map): Add :group arg and allow key to be a list.
+	(define-major-mode): Remove (use define-derived-mode instead).
+	(sml-builtin-nested-comments-flag): New var.
+	(concatq): Remove.
+
+	* sml-proc.el (sml-host-name): New var.
+	(sml-make-file-name): Replace by `sml-compile-commands'.
+	(sml-config-file): New var.
+	(sml-compile-commands-alist): New var.
+	(inferior-sml-load-hook): Remove.
+	(sml-buffer): Query if the current buffer is not a *sml*.
+	(inferior-sml-mode): Use minor-mode-overriding-map-alist to disable
+	compilation-minor-mode's keybindings.
+	(run-sml): Turn into an alias for sml-run.
+	(sml-run): Query the user for the command.  If prefix is set (or if
+	default value is not null) query for args and host.
+	Use `split-string' rather than our own function.
+	Run cmd on another host if requested and pass it an init file.
+	Pop to the buffer at the end.
+	(sml-args-to-list): Remove.
+	(sml-compile): Look for special files (sml-compile-command-alist) in
+	the current dir (and its parents) to choose a default command.
+	Remember the command for next time in the same buffer.
+	Make the `cd' explicit in the command so the user can change it.
+	(sml-make-error): Fix for when `endline' is absent.
+
+	* sml-mode.el: Pass it through checkdoc.
+	(sml-mode-version): Remove.
+	(sml-load-hook): Remove.
+	(sml-mode-info): Use `info' rather than `Info-goto-node'.
+	(sml-keywords-regexp): Add "o".
+	(sml-syntax-prop-table): Use `defsyntax'.
+	(sml-font-lock-syntactic-keywords): Only use nested comments if supported.
+	(sml-mode): Use `define-derived-mode'.
+	(sml-electric-pipe): `sml-indent-line' -> `indent-according-to-mode'.
+	(sml-indent-line): Use `indent-line-to'.
+	(sml-cm-mode): New mode for CM files.
+
+	* Makefile: Update.
+
+	* sml-mode-startup.el: Remove since it's now auto-generated.
+
+	* sml-defs.el (sml-bindings): Remove left over C-c` binding.
+	(sml-mode-map): Add binding for sml-drag-region (was in sml-proc.el).
+	(sml-mode-syntax-table): Only use nested comments if supported.
+	(sml-mode-menu): Use next-error rather than the old sml-next-error.
+	(sml-pipehead-re): Remove "of".
+
+	* sml-compat.el (set-keymap-parents): Make sure it also works when
+	called with a single keymap rather than a list.
+	(temporary-file-directory): Add a default definition for XEmacs.
+	(make-temp-file): New function.
+
+1999-08-11  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* Release version 3.9.3.
+
+	* sml-mode.texi: Somewhat update the doc.
+
+1999-08-09  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* Makefile: Update to the version of pcl-cvs.
+
+	* sml-proc.el: Eliminate some old unused code.
+
+	* sml-defs.el,sml-mode.el,sml-proc.el: Add simple customize support.
+
+1999-07-07  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* sml-proc.el (sml-update-cursor): Make sure it also works if
+	compile.el is fixed to uses a marker.
+
+	* sml-mode.el (sml-indent): Fix the `fixindent'.
+
+1999-06-22  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* sml-mode-startup.el: Fix to fulfill autoload.el assumptions.
+
+1999-06-21  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* sml-defs.el (sml-bindings): Remove bindings for TAB and M-C-\.
+
+1999-06-19  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* sml-mode.el (sml-font-lock-keywords): Skip type vars in "fun 'a myfn"
+	(sml-calculate-indentation): Add a hack to allow the user to manually
+	override the indentation algorithm with a magic comment.
+
+	* sml-mode-startup.el: Update the autoloads automatically.
+
+1999-06-19  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* Release version 3.9.2
+
+	* sml-proc.el (sml-error-regexp-alist): Fix the pathological
+	font-locking on long lines.
+
+	* sml-move.el (sml-forward-sexp): Slightly improved.
+
+1999-06-17  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* sml-mode.el (sml-insert-form): Only add a space if needed.
+	(sml-electric-space): New command bound to M-SPC.
+
+	* sml-defs.el (sml-close-paren): Add a second field that specifies when
+	not to delegate.  Only used for `else'.
+
+1999-06-16  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* sml-move.el (sml-(for|back)ward-sym): Distinguish between
+	operator "=" and syntax for definitions "d=".
+
+	* sml-defs.el (sml-indent-starters, sml-delegate): Simplify.
+	(sml-symbol-indent): Add outdentation for `fn' and generalize it to
+	also work for `of' and `in' and `end'.
+
+	* sml-mode.el (sml-nested-if-indent): Reintroduce as well as the
+	special casing code for it.
+	(sml-indent-relative): Generalize treatment of `of', `in', `end', ...
+	(sml-electric-pipe): Remove the slow behavior and add smarts for the
+	never-used type-variable arguments for function definitions.
+
+1999-06-15  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* sml-defs.el (sml-mode-menu), sml-mode.el (sml-forms-menu):
+	Make the menu dynamically.
+
+	* sml-mode.el (sml-form-<foo>): Use skeletons.
+	(sml-calculate-indentation): Add `with' indentation.
+
+1999-06-14  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* sml-move.el (sml-(for|back)ward-sym): Now also return the string
+	if any and take care of the "op" special keyword.
+	(sml-op-prec): Setup an alist for the infix operators.
+
+	* version 3.9.1:  sent to Roland McGrath.
+
+1999-06-13  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* sml-smlnj.el, sml-mosml.el, sml-poly-ml.el: Remove.
+
+	* sml-proc.el (...): Get rid of sml-next-error by spicing up the
+	interface with compile.el so that intervals can be displayed.
+	`sml-overlay' is kept (and moved from sml-mode to sml-proc where it
+	belongs) but is made redundant in the case of transient-mark-mode.
+
+1999-06-12  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* sml-proc.el (sml-prompt-regexp): More general regexp to catch mosml,
+	smlnj as well as polyml prompts.
+	(sml-update-cursor, sml-send-command, inferior-sml-mode):
+	Make it work with compile.el's `next-error'.
+	(sml-temp-threshold): Drop: always use a temp file.
+
+1999-06-10  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* sml-move.el (sml-op-prec): Update the list of default infix ops
+	based on sml/nj's source files.
+
+1999-06-08  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* sml-proc.el (sml-run): Remove dubious code to take care of a
+	supposedly special case in order not to send "" when args=nil.
+
+1999-06-07  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* sml-mode.el (sml-font-lock-syntactic-keywords): Add syntactic
+	fontification for the '   \"' case (exhibited by lexgen.sml).
+
+1999-06-07  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* ALL: The new indentation begins to work.  v3_9_0
+
+1999-05-29  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* sml-defs.el (sml-mode-syntax-table): Add ~ of prefix-syntax.
+
+	* sml-mode.el (sml-find-match-indent): (nilp sml-type-of-indent) is
+	only applied if the `let' is alone at the end of the line.
+	(sml-type-of-indent): Default changed to `nil'.
+
+1999-05-28  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* sml-mode.el (sml-font-lock-keywords): Change _ and ' back to word
+	syntax for font-locking.
+
+1999-05-27  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* sml-mode.el (sml-font-lock-syntactic-keywords): Finally got the
+	matching of let...end working.
+	(sml-electric-pipe): Take a fun sexp (symbol) rather than a fun word.
+
+1998-10-26  Stefan Monnier  <monnier@cs.yale.edu>
+
+	* sml-mode.el (sml-font-lock-syntactic-keywords):
+	Add syntactic-keywords to support nested comments.
+

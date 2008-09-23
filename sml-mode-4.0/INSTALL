@@ -1,0 +1,39 @@
+SML-MODE shouldn't require any special external support package,
+as far as I can rememebr.  Just a recent copy of Emacs or XEmacs.
+
+Installation of the program
+===================================
+
+  1. Edit the file `Makefile' to reflect the situation at your site.
+     The only things you have to change is the definition of `lispdir'
+     and `infodir'.  The elisp files will be copied to `lispdir', and
+     the info file to `infodir'.
+
+  2. Have some sorbet.
+
+  3. Type `make install' in the source directory.  This will byte-compile
+     all `.el' files and copy all into the directory you specified in step
+     1.  It will also copy the info files (and add a corresponding entry to
+     the info-dir file if install-info can be found).
+
+     If you only want to create the compiled elisp files, you can just type
+     `make elcfiles' instead.
+
+  4. Edit the file `site-start.el' in your emacs lisp directory (usually
+     `/usr/local/share/emacs/site-lisp' or something similar) and make it
+     load the file `sml-mode-startup.el'.  It contains a couple of
+     `auto-load's that facilitates the use of sml-mode.  Alternatively, you
+     can just use `make install_startup'.  If you're only installing it for
+     yourself rather than for the whole system, then use something like
+     `make install_startup startupfile=$HOME/.emacs'.
+
+  5. If you had copied the contents of a previous sml-mode-startup.el file to
+     your site-start.el (or .emacs), you might want to remove that.
+
+
+How to make typeset documentation from the TeXinfo manual
+=========================================================
+
+   If you have TeX installed at your site, you can make a typeset version of
+the manual typing ``make dvi''.  If you prefer a postscript version of this
+file, just use ``make postscript''.

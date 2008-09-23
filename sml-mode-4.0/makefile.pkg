@@ -1,0 +1,16 @@
+PACKAGE = sml-mode
+ELFILES	= sml-compat.el sml-util.el sml-defs.el sml-move.el sml-mode.el \
+	sml-proc.el
+
+default: elcfiles
+
+TESTCASE = testcases.sml
+
+test:
+	$(RM) $(TESTCASE).new
+	$(EMACS) \
+	    --eval '(add-to-list (quote load-path) ".")' \
+	    -batch $(TESTCASE) \
+	    --eval '(indent-region (point-min) (point-max) nil)' \
+	    --eval '(write-region (point-min) (point-max) "$(TESTCASE).new")'
+	diff -u -B $(TESTCASE) $(TESTCASE).new

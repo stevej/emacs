@@ -1,0 +1,46 @@
+
+* improve M-C-f and M-C-b (they too often don't do the right thing) and
+  add M-C-k and other such sexp-chunked operations.
+
+* if indentation is non-obvious, return a list of possible indentations
+  and choose the first unless the current is one of the possible choices.
+
+* make `M-x sml-compile' more generic.
+
+* allow specifying indentation of dependent keywords (how to indent `in'
+  relative to `let', for example).
+
+* use symbols instead of strings for `sym'.
+
+* ignore warnings in C-x ` ????
+
+* recognize irrefutable patterns (with "Capital"-heuristics, for example:
+  a regexp like "\\([(),]\\|[_a-z][_a-z0-9]*\\)+").
+  This can then be used to allow indenting like
+
+		(fn x =>
+		 some expressions)
+
+* take advantage of text after-the-line (when available) for indentation.
+
+* obey fixity directives.
+
+* dangling `case e' in stuff like
+
+  fun myfunction x = case x
+   of bla =>
+    | bli =>
+
+* deal with CPS kind of code ???
+
+  function1 (arg1, arg2, fn v1 =>
+  function2 (arg2, fn v2 =>
+  function3 (arg5, arg3, arg8, fn v3 =>
+  function4 (v1, v2, v3))))
+
+  or even just
+
+  F.LET (v1, foo,
+  F.LET (v2, bar,
+  F.LET (v3, baz,
+  F.RET [v1, v2, v3])))

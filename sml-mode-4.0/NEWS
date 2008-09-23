@@ -1,0 +1,105 @@
+Changes since 3.9.5:
+
+* No need to add the dir to your load-path any more.
+  The sml-mode-startup.el file does it for you.
+
+* Symbols like -> can be displayed as real arrows.  See sml-font-lock-symbols.
+
+* Fix some incompatibilities with the upcoming Emacs-21.4.
+
+* Indentation rules improved.  New customizable variable
+  `sml-rightalign-and'.  Also `sml-symbol-indent' is now customizable.
+
+Changes since 3.9.3:
+
+* New add-log support (try C-x 4 a from within an SML function).
+
+* Imenu support
+
+* sml-bindings has disappeared.
+
+* The code skeletons are now abbrevs as well.
+
+* A new *sml* process is sent the content of sml-config-file (~/.sml-proc.sml)
+  if it exists.
+
+* `sml-compile' works yet a bit differently.  The command can begin
+  with `cd "path";' and it will be replaced by OS.FileSys.chDir.
+
+* run-sml now pops up the new buffer.  It can also run the command on another
+  machine.  And it always prompts for the command name.  Use a prefix
+  argument if you want to give args or to specify a host on which
+  to run the command.
+
+* mouse-2 to yank in *sml* should work again (but won't work for next-error
+  any more).
+
+* New major-modes sml-cm-mode, sml-lex-mode and sml-yacc-mode.
+
+* sml-load-hook has disappeared as has inferior-sml-load-hook.
+
+* sml-mode-startup.el is now automatically generated and you're supposed to
+  `load' it from .emacs or site-start.el.
+
+* Minor bug fixes.
+
+Changes since 3.3:
+
+* the sml-drag-* commands have disappeared.
+
+* added a little bit of `customize' support.  Many of the customization
+  variables for indentation are still in flux, so they are not customize'd.
+
+* proformas have been replaced by skeletons.  it's mostly the same as
+  before (the layout has slightly changed, tho).  The main difference
+  is that the indentation relies on the major-mode indentation so it
+  is implicitly customized, which makes more sense to me.
+  Also I added an electric space M-SPC that will call the corresponding
+  skeleton if any matches the immediately preceding symbol.  Basically
+  that allows you to type `l e t M-SPC' to call the `let' skeleton.
+
+* M-C-f and M-C-b try to be smart and jump around let..end and such blocks.
+  It's probably either too smart or not smart enough, tho.
+
+* there is no more sml-<compiler>.el since the code should work for "all"
+  known compilers.  If your favorite compiler doesn't seem to work right
+  send me a sample session.
+
+* hilite support has disappeared and font-lock and menu support is now built-in.
+
+* the indentation algorithm is inherently much slower.  I've tried to ensure
+  the slowness never manifests itself in practice, but if you find a case
+  where the indentation doesn't feel instantaneous, tell me.
+
+* function arguments get properly indented (yes, madam).
+
+* the indentation has been majorly reworked.  The list of changes is too long.
+  Many customizations have disappeared, some may reappear depending on the
+  feedback I get.  The indentation should now "always" work right, so
+  tell me when it doesn't.
+
+* nested comments are only properly handled if you have a nested-comments
+  aware Emacs (I don't know of any yet) or if you turn on font-lock.
+
+* provide `sml-compile' which does something similat to `compile' except it
+  passes the command to an inferior-sml process.  Also it has an additional
+  hack to look for sml-make-file-name in parent directories and cd to it
+  before sending the command (handy for CM.make() when the sources.cm file
+  is not in the current directory).  This hack is very ad-hoc and quite
+  misleading for people who don't use CM.  I.e. the default is not safe.
+
+* sml-send-region and friends now always use a temp file.  The temp file
+  management has been made a little more secure.
+
+* the overlay is now turned off by default.  Instead the region is activated,
+  so that transient-mark-mode will end up highlighting the error just like
+  the overlay used to do.
+
+* sml-proc uses compile.el for error parsing.  This mostly means that instead
+  of C-c ` you want to use the standard C-x `.  It also means that error
+  formats for any compiler can be added more easily.
+
+* The special frame handling has been thrown out because it doesn't interact
+  well with Emacs' own similar feature.  I believe XEmacs still doesn't provide
+  such a feature, so if you miss it, either switch to Emacs or (convince
+  someone else to) add it to XEmacs.
