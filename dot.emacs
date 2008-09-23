@@ -38,13 +38,36 @@
 ;; .bashrc should open in sh mode
 (setq auto-mode-alist (cons '("\\.bashrc" . sh-mode) auto-mode-alist))
 
-
 ;; haskell-mode
 (load "~/.emacs.d/haskell-mode-2.4/haskell-site-file")
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 ;; (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-ghci)
+
+;; ocaml tuareg mode
+(add-to-list 'load-path "~/.emacs.d/tuareg-mode-1.45.4/")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; append-tuareg.el - Tuareg quick installation: Append this file to .emacs.
+
+(setq auto-mode-alist (cons '("\\.ml\\w?" . tuareg-mode) auto-mode-alist))
+(autoload 'tuareg-mode "tuareg" "Major mode for editing Caml code" t)
+(autoload 'camldebug "camldebug" "Run the Caml debugger" t)
+
+(if (and (boundp 'window-system) window-system)
+    (when (string-match "XEmacs" emacs-version)
+        (if (not (and (boundp 'mule-x-win-initted) mule-x-win-initted))
+            (require 'sym-lock))
+        (require 'font-lock)))
+
+;; SML-mode
+(add-to-list 'load-path "~/.emacs.d/sml-mode-4.0/")
+(autoload 'sml-mode "sml-mode" "Major mode for editing SML." t)
+(autoload 'run-sml "sml-proc" "Run an inferior SML process." t)
+
+(add-to-list 'auto-mode-alist '("\\.\\(sml\\|sig\\)\\'" . sml-mode))
+
 
 ;; ant helper
 (defvar ant-command-history nil
