@@ -38,6 +38,14 @@
 ;; .bashrc should open in sh mode
 (setq auto-mode-alist (cons '("\\.bashrc" . sh-mode) auto-mode-alist))
 
+
+;; haskell-mode
+(load "~/.emacs.d/haskell-mode-2.4/haskell-site-file")
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+;; (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-ghci)
+
 ;; ant helper
 (defvar ant-command-history nil
   "Ant command history variable")
