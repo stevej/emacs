@@ -15,6 +15,8 @@
 ;; allow us to look at whitespace
 (require 'whitespace)
 
+(require 'rnc-mode)
+
 ;; gist integration
 (require 'gist)
 
