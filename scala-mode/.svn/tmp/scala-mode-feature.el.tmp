@@ -4,7 +4,7 @@
 ;; Copyright (C) 2008 Scala Dev Team at EPFL
 ;; Authors: See AUTHORS file
 ;; Keywords: scala languages oop
-;; $Id: scala-mode-variables.el 16153 2008-09-19 22:26:07Z nielsen $
+;; $Id$
 
 ;;; License
 
@@ -47,14 +47,26 @@
 ;;; Code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(provide 'scala-mode-variables)
+(provide 'scala-mode-feature)
 
-;; Feature specific variables that need to be shared!
+;; Feature loading
 
-(defvar scala-mode-feature-tempo-tags nil 
-  "Tempo tags for Scala mode")
+(defvar scala-mode-feature-list
+  '(scala-mode-feature-templates
+    scala-mode-feature-scaladoc
+    scala-mode-feature-tags
+    scala-mode-feature-speedbar
+    scala-mode-feature-electric
+    )
+  "List of features")
 
+(defvar scala-mode-feature-installed-p nil)
 
-; define scala-mode-hook
-(defvar scala-mode-hook nil
-  "Hook to run after installing scala mode")
+(defun scala-mode-feature-install ()
+  (unless scala-mode-feature-installed-p
+    (dolist (feature scala-mode-feature-list)
+      (when (require feature nil t)
+        (apply
+         (intern (concat (symbol-name feature) "-install"))
+         (list))))
+    (setq scala-mode-feature-installed-p t)))
