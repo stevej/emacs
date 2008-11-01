@@ -4,7 +4,7 @@
 ;; Copyright (C) 2008 Scala Dev Team at EPFL
 ;; Authors: See AUTHORS file
 ;; Keywords: scala languages oop
-;; $Id: scala-mode-navigation.el 16153 2008-09-19 22:26:07Z nielsen $
+;; $Id$
 
 ;;; License
 
