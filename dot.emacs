@@ -21,7 +21,7 @@
 (require 'gist)
 
 ;; factor integration
-(load "factor")
+;;(load "factor")
 
 ;; nxml-mode
 (load "~/.emacs.d/nxml-mode-20041004/rng-auto.el")
