@@ -118,3 +118,10 @@ executed. Errors are navigate to as in any other compile mode"
                                        nil
                                        'ant-command-history))))))
 
+
+;; full-screen-mode
+(defun mac-toggle-max-window ()
+  (interactive)
+  (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
+                                           nil
+                                           'fullboth)))
