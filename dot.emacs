@@ -4,11 +4,28 @@
 (setq-default show-trailing-whitespace t)
 (global-auto-revert-mode 1)
 
+(require 'ido)
+(ido-mode t)
+
+(setq ido-enable-flex-matching t) ; fuzzy matching is a must have
+
+;; This tab override shouldn't be necessary given ido's default
+;; configuration, but minibuffer-complete otherwise dominates the
+;; tab binding because of my custom tab-completion-everywhere
+;; configuration.
+(add-hook 'ido-setup-hook
+          (lambda ()
+            (define-key ido-completion-map [tab] 'ido-complete)))
+
+(load "~/.emacs.d/magit/magit.el")
+
 (setq default-frame-alist
       '((font . "-apple-inconsolata-medium-r-normal--20-140-72-72-m-140-iso10646-1")))
 
 ;; kill tabs.
 (add-to-list 'load-path "~/.emacs.d")
+(add-to-list 'load-path "~/.emacs.d/vendor")
+
 (require 'show-wspace)
 (add-hook 'font-lock-mode-hook 'show-ws-highlight-tabs)
 
@@ -19,6 +36,9 @@
 
 ;; gist integration
 (require 'gist)
+
+;; factor integration
+;;(load "factor")
 
 ;; nxml-mode
 (load "~/.emacs.d/nxml-mode-20041004/rng-auto.el")
@@ -125,3 +145,5 @@ executed. Errors are navigate to as in any other compile mode"
   (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
                                            nil
                                            'fullboth)))
+(require 'textmate)
+(textmate-mode)
