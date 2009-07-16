@@ -99,6 +99,7 @@
   "Mode for editing ruby source files")
 
 (add-to-list 'auto-mode-alist '("\\.rb$"  . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.pp$"  . ruby-mode)) ; for puppet
 (add-to-list 'auto-mode-alist '("Capfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("capfile" . ruby-mode))
 
@@ -115,6 +116,10 @@
 (autoload 'rubydb "rubydb3x" "Ruby debugger" t)
 ;; uncomment the next line if you want syntax highlighting
 (add-hook 'ruby-mode-hook 'turn-on-font-lock)
+
+;; Rinari
+(add-to-list 'load-path "~/.emacs.d/rinari")
+(require 'rinari)
 
 ;; ant helper
 (defvar ant-command-history nil
