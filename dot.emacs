@@ -3,6 +3,9 @@
 (setq-default indent-tabs-mode nil)
 (setq-default show-trailing-whitespace t)
 (global-auto-revert-mode 1)
+(windmove-default-keybindings)
+
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
 (require 'ido)
 (ido-mode t)
@@ -47,6 +50,9 @@
 (add-to-list 'load-path "~/.emacs.d/scala-mode")
 (require 'scala-mode-auto)
 (require 'font-lock)
+
+;; building scala with sbt
+(load "~/.emacs.d/support/sbt.el")
 
 ;; thrift-mode
 (add-to-list 'load-path "~/.emacs.d/thrift-mode")
