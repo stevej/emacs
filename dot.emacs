@@ -187,15 +187,3 @@ executed. Errors are navigate to as in any other compile mode"
 (require 'textmate)
 (textmate-mode)
 
-;; CEDET
-(load "~/.emacs.d/vendor/cedet/common/cedet.el")
-(load "~/.emacs.d/vendor/cedet/semantic/semantic-load.el")
-(load "~/.emacs.d/vendor/cedet/contrib/semantic-ectag-scala.el")
-;;(global-ede-mode 1)                      ; Enable the Project management system
-(semantic-load-enable-code-helpers)      ; Enable prototype help and smart completion
-(global-srecode-minor-mode 1)            ; Enable template insertion menu
-(semantic-load-enable-primary-exuberent-ctags-support)
-
-;; ECB
-(add-to-list 'load-path "~/.emacs.d/vendor/ecb")
-(require 'ecb)
