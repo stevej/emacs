@@ -1,0 +1,3 @@
+[submodule "vendor/slime"]
+	path = vendor/slime
+	url = git://github.com/nablaone/slime.git
