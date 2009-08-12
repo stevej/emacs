@@ -1,15 +1,21 @@
+
+;; customizations
 (setq-default tool-bar-mode nil)
 (setq c-basic-offset 2)
 (setq-default indent-tabs-mode nil)
 (setq-default show-trailing-whitespace t)
 (global-auto-revert-mode 1)
 (windmove-default-keybindings)
-
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+(setq default-frame-alist
+      '((font . "-apple-inconsolata-medium-r-normal--20-140-72-72-m-140-iso10646-1")))
 
+;; .bashrc should open in sh mode
+(setq auto-mode-alist (cons '("\\.bashrc" . sh-mode) auto-mode-alist))
+
+;; browsing
 (require 'ido)
 (ido-mode t)
-
 (setq ido-enable-flex-matching t) ; fuzzy matching is a must have
 
 ;; This tab override shouldn't be necessary given ido's default
@@ -20,24 +26,21 @@
           (lambda ()
             (define-key ido-completion-map [tab] 'ido-complete)))
 
+;; version control
 (load "~/.emacs.d/vendor/magit/magit.el")
 
-(setq default-frame-alist
-      '((font . "-apple-inconsolata-medium-r-normal--20-140-72-72-m-140-iso10646-1")))
-
-;; kill tabs.
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/vendor")
 (add-to-list 'load-path "~/.emacs.d/vendor/textmate")
 (add-to-list 'load-path "~/.emacs.d/utilities/ert")
 (add-to-list 'load-path "~/.emacs.d/utilities/jump")
 
+;; allow us to look at whitespace
+(require 'whitespace)
 (require 'show-wspace)
 (add-hook 'font-lock-mode-hook 'show-ws-highlight-tabs)
 
-;; allow us to look at whitespace
-(require 'whitespace)
-
+;; relax ng
 (require 'rnc-mode)
 
 ;; gist integration
@@ -85,9 +88,6 @@
 ;; textile-mode
 (load "textile-mode")
 (add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
-
-;; .bashrc should open in sh mode
-(setq auto-mode-alist (cons '("\\.bashrc" . sh-mode) auto-mode-alist))
 
 ;; haskell-mode
 (load "~/.emacs.d/haskell-mode-2.4/haskell-site-file")
@@ -181,6 +181,8 @@ executed. Errors are navigate to as in any other compile mode"
   (interactive)
   (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
                                            nil
+
                                            'fullboth)))
+;; browsing
 (require 'textmate)
 (textmate-mode)
