@@ -1,2 +1,0 @@
-class NewoneController < ApplicationController
-end
