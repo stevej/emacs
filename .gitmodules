@@ -19,3 +19,9 @@
 [submodule "vendor/swank-clojure"]
 	path = vendor/swank-clojure
 	url = git://github.com/jochu/swank-clojure.git
+[submodule "vendor/cedet"]
+	path = vendor/cedet
+	url = git://github.com/emacs-pkg-mirrors/cedet.git
+[submodule "vendor/ecb"]
+	path = vendor/ecb
+	url = git://github.com/pat-maddox/ecb.git
