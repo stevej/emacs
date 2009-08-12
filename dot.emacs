@@ -40,6 +40,10 @@
 ;; gist integration
 (require 'gist)
 
+;; clojure-mode
+(add-to-list 'load-path "~/.emacs.d/vendor/clojure-mode")
+(require 'clojure-mode)
+
 ;; factor integration
 ;;(load "factor")
 
