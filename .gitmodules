@@ -10,3 +10,9 @@
 [submodule "vendor/rinari"]
 	path = vendor/rinari
 	url = git://github.com/eschulte/rinari.git
+[submodule "utilities/jump"]
+	path = utilities/jump
+	url = git://github.com/eschulte/jump.el.git
+[submodule "utilities/ert"]
+	path = utilities/ert
+	url = git://github.com/nex3/ert.git

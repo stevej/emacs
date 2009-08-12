@@ -20,7 +20,7 @@
           (lambda ()
             (define-key ido-completion-map [tab] 'ido-complete)))
 
-(load "~/.emacs.d/magit/magit.el")
+(load "~/.emacs.d/vendor/magit/magit.el")
 
 (setq default-frame-alist
       '((font . "-apple-inconsolata-medium-r-normal--20-140-72-72-m-140-iso10646-1")))
@@ -28,6 +28,9 @@
 ;; kill tabs.
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/vendor")
+(add-to-list 'load-path "~/.emacs.d/vendor/textmate")
+(add-to-list 'load-path "~/.emacs.d/utilities/ert")
+(add-to-list 'load-path "~/.emacs.d/utilities/jump")
 
 (require 'show-wspace)
 (add-hook 'font-lock-mode-hook 'show-ws-highlight-tabs)
@@ -128,7 +131,7 @@
 (add-hook 'ruby-mode-hook 'turn-on-font-lock)
 
 ;; Rinari
-(add-to-list 'load-path "~/.emacs.d/rinari")
+(add-to-list 'load-path "~/.emacs.d/vendor/rinari")
 (require 'rinari)
 
 ;; ant helper
