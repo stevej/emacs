@@ -47,6 +47,22 @@
 (add-to-list 'load-path "~/.emacs.d/vendor/clojure-mode")
 (require 'clojure-mode)
 
+;; swank-clojure
+(add-to-list 'load-path "~/.emacs.d/vendor/swank-clojure")
+(require 'swank-clojure-autoload)
+(swank-clojure-config
+ (setq swank-clojure-jar-path "~/local/src/clojure/clojure.jar")
+ (setq swank-clojure-extra-classpaths
+       (list "~/local/src/clojure/clojure-contrib.jar")))
+
+;; slime
+(eval-after-load "slime"
+  '(progn (slime-setup '(slime-repl))))
+
+(add-to-list 'load-path "~/.emacs.d/vendor/slime")
+(require 'slime)
+(slime-setup)
+
 ;; factor integration
 ;;(load "factor")
 
