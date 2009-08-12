@@ -16,3 +16,6 @@
 [submodule "utilities/ert"]
 	path = utilities/ert
 	url = git://github.com/nex3/ert.git
+[submodule "vendor/swank-clojure"]
+	path = vendor/swank-clojure
+	url = git://github.com/jochu/swank-clojure.git
