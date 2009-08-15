@@ -25,3 +25,6 @@
 [submodule "vendor/ecb"]
 	path = vendor/ecb
 	url = git://github.com/pat-maddox/ecb.git
+[submodule "vendor/configgy-mode"]
+	path = vendor/configgy-mode
+	url = git@github.com:stevej/configgy-mode.git
