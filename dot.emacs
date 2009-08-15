@@ -35,6 +35,10 @@
 (add-to-list 'load-path "~/.emacs.d/utilities/ert")
 (add-to-list 'load-path "~/.emacs.d/utilities/jump")
 
+;; load configgy-mode
+(add-to-list 'load-path "~/.emacs.d/vendor/configgy-mode")
+(require 'configgy-mode)
+
 ;; allow us to look at whitespace
 (require 'whitespace)
 (require 'show-wspace)
@@ -65,6 +69,9 @@
 (add-to-list 'load-path "~/.emacs.d/vendor/slime")
 (require 'slime)
 (slime-setup)
+
+;; incanter
+(load "~/.emacs.d/vendor/incanter.el")
 
 ;; factor integration
 ;;(load "factor")
