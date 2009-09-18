@@ -9,6 +9,9 @@
 (setq default-frame-alist
       '((font . "-apple-inconsolata-medium-r-normal--20-140-72-72-m-140-iso10646-1")))
 
+;; porkrind sees the delete key as kp-delete but binds it to delete-backward-char.
+(global-set-key (kbd "<kp-delete>") 'delete-char)
+
 ;; Put autosave files (ie #foo#) in one place, *not*
 ;; scattered all over the file system!
 (defvar autosave-dir
