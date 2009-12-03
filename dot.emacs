@@ -4,6 +4,8 @@
 (mapcar 'load-directory '("~/.emacs.d/utilities"))
 
 
+(vendor 'haskell-mode)
+
 ;; customizations
 (setq-default tool-bar-mode nil)
 (setq c-basic-offset 2)
@@ -126,13 +128,6 @@
 ;; textile-mode
 (load "textile-mode")
 (add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
-
-;; haskell-mode
-(load "~/.emacs.d/haskell-mode-2.4/haskell-site-file")
-(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-;; (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-ghci)
 
 ;; ocaml tuareg mode
 (add-to-list 'load-path "~/.emacs.d/tuareg-mode-1.45.4/")
