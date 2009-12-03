@@ -6,6 +6,7 @@
 
 (vendor 'haskell-mode)
 (vendor 'textmate)
+(vendor 'configgy-mode)
 
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
 
@@ -16,10 +17,6 @@
 (add-to-list 'load-path "~/.emacs.d/vendor")
 (add-to-list 'load-path "~/.emacs.d/utilities/ert")
 (add-to-list 'load-path "~/.emacs.d/utilities/jump")
-
-;; load configgy-mode
-(add-to-list 'load-path "~/.emacs.d/vendor/configgy-mode")
-(require 'configgy-mode)
 
 ;; allow us to look at whitespace
 (require 'whitespace)
