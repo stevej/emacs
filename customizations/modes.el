@@ -120,5 +120,4 @@
 (add-hook 'ruby-mode-hook 'turn-on-font-lock)
 
 ;; Rinari
-(add-to-list 'load-path "~/.emacs.d/vendor/rinari")
 (require 'rinari)

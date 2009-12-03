@@ -20,6 +20,8 @@
 (vendor 'thrift-mode)
 (vendor 'sml-mode)
 (vendor 'ruby-mode)
+(vendor 'rinari)
+
 
 
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
