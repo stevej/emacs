@@ -43,7 +43,6 @@
 (require 'gist)
 
 ;; clojure-mode
-(add-to-list 'load-path "~/.emacs.d/vendor/clojure-mode")
 (require 'clojure-mode)
 
 ;; swank-clojure

@@ -14,6 +14,8 @@
 (vendor 'textmate)
 (vendor 'configgy-mode)
 (vendor 'magit)
+(vendor 'clojure-mode)
+
 
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
 
