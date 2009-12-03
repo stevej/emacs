@@ -17,6 +17,7 @@
 (vendor 'clojure-mode)
 (vendor 'incanter)
 (vendor 'scala-mode)
+(vendor 'thrift-mode)
 
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
 

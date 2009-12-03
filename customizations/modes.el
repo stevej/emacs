@@ -82,8 +82,8 @@
 (load "~/.emacs.d/support/sbt.el")
 
 ;; thrift-mode
-(add-to-list 'load-path "~/.emacs.d/thrift-mode")
-(load "thrift")
+;; (add-to-list 'load-path "~/.emacs.d/thrift-mode")
+;; (load "thrift")
 (require 'thrift-mode)
 
 ;; textile-mode
