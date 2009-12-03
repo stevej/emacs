@@ -89,7 +89,6 @@
 (add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
 
 ;; SML-mode
-(add-to-list 'load-path "~/.emacs.d/sml-mode-4.0/")
 (autoload 'sml-mode "sml-mode" "Major mode for editing SML." t)
 (autoload 'run-sml "sml-proc" "Run an inferior SML process." t)
 

@@ -18,6 +18,8 @@
 (vendor 'incanter)
 (vendor 'scala-mode)
 (vendor 'thrift-mode)
+(vendor 'sml-mode)
+
 
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
 
