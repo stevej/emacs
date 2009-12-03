@@ -2,16 +2,12 @@
 
 (load-file "~/.emacs.d/load-directory.el")
 (mapcar 'load-directory '("~/.emacs.d/utilities"))
-
+(mapcar 'load-directory '("~/.emacs.d/customizations"))
 
 (vendor 'haskell-mode)
 (vendor 'textmate)
 (vendor 'configgy-mode)
-
-(mapcar 'load-directory '("~/.emacs.d/customizations"))
-
-;; version control
-(load "~/.emacs.d/vendor/magit/magit.el")
+(vendor 'magit)
 
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/vendor")
