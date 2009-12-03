@@ -97,8 +97,6 @@
 ;; ruby
 ;; based on http://www.rubygarden.org/Ruby/page/show/InstallingEmacsExtensions
 
-(add-to-list 'load-path "~/.emacs.d/ruby")
-
 (autoload 'ruby-mode "ruby-mode"
   "Mode for editing ruby source files")
 

@@ -19,6 +19,7 @@
 (vendor 'scala-mode)
 (vendor 'thrift-mode)
 (vendor 'sml-mode)
+(vendor 'ruby-mode)
 
 
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
