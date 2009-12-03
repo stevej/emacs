@@ -1,3 +1,9 @@
+(require 'cl)
+
+(load-file "~/.emacs.d/load-directory.el")
+(mapcar 'load-directory '("~/.emacs.d/utilities"))
+
+
 ;; customizations
 (setq-default tool-bar-mode nil)
 (setq c-basic-offset 2)
