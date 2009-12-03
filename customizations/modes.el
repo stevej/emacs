@@ -82,29 +82,11 @@
 (load "~/.emacs.d/support/sbt.el")
 
 ;; thrift-mode
-;; (add-to-list 'load-path "~/.emacs.d/thrift-mode")
-;; (load "thrift")
 (require 'thrift-mode)
 
 ;; textile-mode
 (load "textile-mode")
 (add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
-
-;; ocaml tuareg mode
-(add-to-list 'load-path "~/.emacs.d/tuareg-mode-1.45.4/")
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; append-tuareg.el - Tuareg quick installation: Append this file to .emacs.
-
-(setq auto-mode-alist (cons '("\\.ml\\w?" . tuareg-mode) auto-mode-alist))
-(autoload 'tuareg-mode "tuareg" "Major mode for editing Caml code" t)
-(autoload 'camldebug "camldebug" "Run the Caml debugger" t)
-
-(if (and (boundp 'window-system) window-system)
-    (when (string-match "XEmacs" emacs-version)
-        (if (not (and (boundp 'mule-x-win-initted) mule-x-win-initted))
-            (require 'sym-lock))
-        (require 'font-lock)))
 
 ;; SML-mode
 (add-to-list 'load-path "~/.emacs.d/sml-mode-4.0/")
