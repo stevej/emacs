@@ -46,6 +46,7 @@
 (require 'clojure-mode)
 
 ;; swank-clojure
+;;; These requires and load-path additions are sensitive.
 (add-to-list 'load-path "~/.emacs.d/vendor/swank-clojure")
 (require 'swank-clojure-autoload)
 (swank-clojure-config
@@ -60,18 +61,20 @@
 (add-to-list 'load-path "~/.emacs.d/vendor/slime")
 (require 'slime)
 (slime-setup)
+;; end sensitivity.
+
 
 ;; incanter
-(load "~/.emacs.d/vendor/incanter.el")
+;;(load "~/.emacs.d/vendor/incanter.el")
 
 ;; factor integration
 ;;(load "factor")
 
 ;; nxml-mode
+;; al3x lol'd at the timestamp. (see if there's a new version)
 (load "~/.emacs.d/nxml-mode-20041004/rng-auto.el")
 
 ;; scala-mode
-(add-to-list 'load-path "~/.emacs.d/scala-mode")
 (require 'scala-mode-auto)
 (require 'font-lock)
 

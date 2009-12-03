@@ -15,7 +15,8 @@
 (vendor 'configgy-mode)
 (vendor 'magit)
 (vendor 'clojure-mode)
-
+(vendor 'incanter)
+(vendor 'scala-mode)
 
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
 
