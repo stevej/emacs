@@ -5,6 +5,9 @@
 
 
 (vendor 'haskell-mode)
+(vendor 'textmate)
+
+(mapcar 'load-directory '("~/.emacs.d/customizations"))
 
 ;; customizations
 (setq-default tool-bar-mode nil)
@@ -64,7 +67,6 @@
 
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/vendor")
-(add-to-list 'load-path "~/.emacs.d/vendor/textmate")
 (add-to-list 'load-path "~/.emacs.d/utilities/ert")
 (add-to-list 'load-path "~/.emacs.d/utilities/jump")
 
@@ -216,7 +218,4 @@ executed. Errors are navigate to as in any other compile mode"
                                            nil
 
                                            'fullboth)))
-;; textmate-minor-mode
-(require 'textmate)
-(textmate-mode)
 
