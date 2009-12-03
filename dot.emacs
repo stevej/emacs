@@ -1,18 +1,22 @@
 (require 'cl)
 
+(add-to-list 'load-path "~/.emacs.d")
+(add-to-list 'load-path "~/.emacs.d/customizations")
+(add-to-list 'load-path "~/.emacs.d/vendor")
+(add-to-list 'load-path "~/.emacs.d/utilities")
+(add-to-list 'load-path "~/.emacs.d/utilities/ert")
+(add-to-list 'load-path "~/.emacs.d/utilities/jump")
+
 (load-file "~/.emacs.d/load-directory.el")
 (mapcar 'load-directory '("~/.emacs.d/utilities"))
-(mapcar 'load-directory '("~/.emacs.d/customizations"))
 
 (vendor 'haskell-mode)
 (vendor 'textmate)
 (vendor 'configgy-mode)
 (vendor 'magit)
 
-(add-to-list 'load-path "~/.emacs.d")
-(add-to-list 'load-path "~/.emacs.d/vendor")
-(add-to-list 'load-path "~/.emacs.d/utilities/ert")
-(add-to-list 'load-path "~/.emacs.d/utilities/jump")
+(mapcar 'load-directory '("~/.emacs.d/customizations"))
+
 
 ;; allow us to look at whitespace
 (require 'whitespace)

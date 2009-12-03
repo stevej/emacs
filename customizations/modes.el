@@ -1,5 +1,7 @@
 ;; textmate-minor-mode
-(textmate-mode)
+
+(require 'textmate)
+(textmate-mode t)
 
 ;; haskell-mode
 (load "haskell-site-file")
@@ -16,6 +18,8 @@
 (global-auto-revert-mode 1)
 ;;(windmove-default-keybindings)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
+;; default font is Inconsolata
 (setq default-frame-alist
       '((font . "-apple-inconsolata-medium-r-normal--20-140-72-72-m-140-iso10646-1")))
 
