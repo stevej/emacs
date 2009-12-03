@@ -21,6 +21,7 @@
 (vendor 'sml-mode)
 (vendor 'ruby-mode)
 (vendor 'rinari)
+(vendor 'nxml-mode)
 
 
 

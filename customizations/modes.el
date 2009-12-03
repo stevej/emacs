@@ -72,7 +72,8 @@
 
 ;; nxml-mode
 ;; al3x lol'd at the timestamp. (see if there's a new version)
-(load "~/.emacs.d/nxml-mode-20041004/rng-auto.el")
+;; (load "~/.emacs.d/nxml-mode-20041004/rng-auto.el")
+;; FIXME: get rng-mode working.
 
 ;; scala-mode
 (require 'scala-mode-auto)
