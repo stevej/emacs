@@ -22,6 +22,7 @@
 (vendor 'ruby-mode)
 (vendor 'rinari)
 (vendor 'nxml-mode)
+(vendor 'textile-mode)
 
 
 
