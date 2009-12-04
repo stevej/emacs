@@ -3,5 +3,4 @@ My emacs snippets.
 cd $HOME
 git clone git://github.com/stevej/emacs.git .emacs.d
 
-put the following into your .emacs
-(load "~/.emacs.d/dot.emacs")
+No need to put anything in your .emacs if you place this in .emacs.d.
