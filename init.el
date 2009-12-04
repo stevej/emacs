@@ -23,6 +23,7 @@
 (vendor 'rinari)
 (vendor 'nxml-mode)
 (vendor 'textile-mode)
+(vendor 'full-ack)
 
 ;; This must be loaded last due to dependencies
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
