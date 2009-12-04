@@ -46,8 +46,8 @@
 (require 'clojure-mode)
 
 ;; swank-clojure
-;;; These requires and load-path additions are sensitive.
-(add-to-list 'load-path "~/.emacs.d/vendor/swank-clojure")
+;;; These calls to vendor are sensitive and should not be moved back to init.el
+(vendor 'swank-clojure)
 (require 'swank-clojure-autoload)
 (swank-clojure-config
  (setq swank-clojure-jar-path "~/local/src/clojure/clojure.jar")
@@ -58,7 +58,7 @@
 (eval-after-load "slime"
   '(progn (slime-setup '(slime-repl))))
 
-(add-to-list 'load-path "~/.emacs.d/vendor/slime")
+(vendor 'slime)
 (require 'slime)
 (slime-setup)
 ;; end sensitivity.
