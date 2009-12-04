@@ -24,6 +24,7 @@
 (vendor 'nxml-mode)
 (vendor 'textile-mode)
 (vendor 'full-ack)
+(vendor 'nav)
 
 ;; This must be loaded last due to dependencies
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
