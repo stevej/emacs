@@ -7,7 +7,7 @@
 (add-to-list 'load-path "~/.emacs.d/utilities/jump")
 (add-to-list 'load-path "~/.emacs.d/vendor")
 
-(load-file "~/.emacs.d/load-directory.el")
+(load "~/.emacs.d/load-directory.el")
 (mapcar 'load-directory '("~/.emacs.d/utilities"))
 
 (vendor 'haskell-mode)
