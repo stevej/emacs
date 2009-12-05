@@ -1,4 +1,5 @@
 (require 'cl)
+(defvar *emacs-load-start* (current-time))
 
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/customizations")
@@ -27,3 +28,7 @@
 
 ;; This must be loaded last due to dependencies
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
+
+(message "My .emacs loaded in %ds" (destructuring-bind (hi lo ms) (current-time)
+                             (- (+ hi lo) (+ (first *emacs-load-start*) (second
+                             *emacs-load-start*)))))
