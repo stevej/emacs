@@ -6,9 +6,8 @@
 ;;(windmove-default-keybindings)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
-;; default font is Inconsolata
-(setq default-frame-alist
-      '((font . "-apple-inconsolata-medium-r-normal--20-140-72-72-m-140-iso10646-1")))
+;; Default font is Deja Vu Sans Mono, 20pt.
+(set-default-font "-apple-deja vu sans mono-medium-r-normal--20-140-72-72-m-140-iso10646-1")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
