@@ -1,3 +1,7 @@
+;; set sane exec path before anything else.
+(push "/opt/local/bin" exec-path)
+(push "/usr/local/bin" exec-path)
+
 (require 'cl)
 (defvar *emacs-load-start* (current-time))
 
