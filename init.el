@@ -30,6 +30,7 @@
 (vendor 'textile-mode)
 (vendor 'full-ack)
 (vendor 'nav)
+(vendor 'js2-mode)
 
 ;; This must be loaded last due to dependencies
 (mapcar 'load-directory '("~/.emacs.d/customizations"))

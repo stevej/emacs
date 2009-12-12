@@ -18,6 +18,9 @@
 ;; .bashrc should open in sh mode
 (setq auto-mode-alist (cons '("\\.bashrc" . sh-mode) auto-mode-alist))
 
+;; .js should be in javascript mode
+(setq auto-mode-alist (cons '("\\.js" . js2-mode) auto-mode-alist))
+
 ;; browsing
 (require 'ido)
 (ido-mode t)
