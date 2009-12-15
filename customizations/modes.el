@@ -130,3 +130,8 @@
 (autoload 'ack "full-ack" nil t)
 (autoload 'ack-find-same-file "full-ack" nil t)
 (autoload 'ack-find-file "full-ack" nil t)
+
+; smart-tab
+(require 'smart-tab)
+(global-smart-tab-mode 1)
+(setq smart-tab-using-hippie-expand t)
