@@ -31,6 +31,7 @@
 (vendor 'full-ack)
 (vendor 'nav)
 (vendor 'js2-mode)
+(vendor 'yaml-mode)
 (vendor 'smart-tab)
 
 ;; This must be loaded last due to dependencies

@@ -21,6 +21,9 @@
 ;; .js should be in javascript mode
 (setq auto-mode-alist (cons '("\\.js" . js2-mode) auto-mode-alist))
 
+;; .yml is yaml, dudes
+(setq auto-mode-alist (cons '("\\.yml" . yaml-mode) auto-mode-alist))
+
 ;; browsing
 (require 'ido)
 (ido-mode t)
