@@ -32,3 +32,6 @@
 ; navigating through errors
 (global-set-key [(meta n)] 'next-error)
 (global-set-key [(meta p)] 'previous-error)
+
+; magit
+(global-set-key (kbd "C-c i") 'magit-status)
