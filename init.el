@@ -34,6 +34,8 @@
 (vendor 'yaml-mode)
 (vendor 'smart-tab)
 (vendor 'jasmin)
+(vendor 'forth-mode)
+(vendor 'lua-mode)
 
 ;; This must be loaded last due to dependencies
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
