@@ -33,6 +33,7 @@
 (vendor 'js2-mode)
 (vendor 'yaml-mode)
 (vendor 'smart-tab)
+(vendor 'quack)
 (vendor 'jasmin)
 (vendor 'forth-mode)
 (vendor 'lua-mode)
