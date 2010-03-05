@@ -33,6 +33,7 @@
 (vendor 'js2-mode)
 (vendor 'yaml-mode)
 (vendor 'smart-tab)
+(vendor 'quack)
 
 ;; This must be loaded last due to dependencies
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
