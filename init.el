@@ -36,6 +36,7 @@
 (vendor 'jasmin)
 (vendor 'forth-mode)
 (vendor 'lua-mode)
+(vendor 'google-c-style)
 
 ;; This must be loaded last due to dependencies
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
