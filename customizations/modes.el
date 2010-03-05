@@ -138,3 +138,9 @@
 (require 'smart-tab)
 (global-smart-tab-mode 1)
 (setq smart-tab-using-hippie-expand nil)
+
+; lua-mode
+(setq auto-mode-alist (cons '("\\.lua$" . lua-mode) auto-mode-alist))
+
+; forth-mode
+(setq auto-mode-alist (cons '("\\.f$" . forth-mode) auto-mode-alist))
