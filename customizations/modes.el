@@ -101,6 +101,9 @@
 
 (add-to-list 'auto-mode-alist '("\\.\\(sml\\|sig\\)\\'" . sml-mode))
 
+;; tuareg-mode for Caml Light
+(add-to-list 'auto-mode-alist '("\\.ml\\'" . tuareg-mode))
+
 ;; ruby
 ;; based on http://www.rubygarden.org/Ruby/page/show/InstallingEmacsExtensions
 

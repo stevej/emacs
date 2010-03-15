@@ -34,6 +34,7 @@
 (vendor 'yaml-mode)
 (vendor 'smart-tab)
 ;;(vendor 'tea)
+(vendor 'tuareg)
 (vendor 'quack)
 (vendor 'jasmin)
 (vendor 'forth-mode)
