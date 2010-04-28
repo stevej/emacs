@@ -48,27 +48,14 @@
 ;; gist integration
 (require 'gist)
 
-;; clojure-mode
-(require 'clojure-mode)
 
-;; swank-clojure
-;;; These calls to vendor are sensitive and should not be moved back to init.el
-(vendor 'swank-clojure)
-(require 'swank-clojure-autoload)
-(swank-clojure-config
- (setq swank-clojure-jar-path "~/local/src/clojure/clojure.jar")
- (setq swank-clojure-extra-classpaths
-       (list "~/local/src/clojure/clojure-contrib.jar")))
-
-;; slime
-(eval-after-load "slime"
-  '(progn (slime-setup '(slime-repl))))
-
-(vendor 'slime)
+(add-to-list 'load-path "~/../swank-clojure")
+(add-to-list 'load-path "~/../slime/contrib")
+(add-to-list 'load-path "~/../slime")
 (require 'slime)
-(slime-setup)
-;; end sensitivity.
 
+(autoload 'clojure-mode "clojure-mode" "foo" t)
+(add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode)
 
 ;; incanter
 ;;(load "~/.emacs.d/vendor/incanter.el")

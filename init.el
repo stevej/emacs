@@ -19,7 +19,6 @@
 (vendor 'textmate)
 (vendor 'configgy-mode)
 (vendor 'magit)
-(vendor 'clojure-mode)
 (vendor 'incanter)
 (vendor 'scala-mode)
 (vendor 'thrift-mode)
@@ -71,3 +70,14 @@
  '(diff-nonexistent ((t (:inherit diff-file-header :strike-through nil))))
  '(diff-refine-change ((((class color) (min-colors 88) (background dark)) (:background "#182042"))))
  '(diff-removed ((t (:foreground "#de1923")))))
+
+
+;;; This was installed by package-install.el.
+;;; This provides support for the package system and
+;;; interfacing with ELPA, the package archive.
+;;; Move this code earlier if you want to reference
+;;; packages in your .emacs.
+(when
+    (load
+     (expand-file-name "~/.emacs.d/elpa/package.el"))
+  (package-initialize))
