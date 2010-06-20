@@ -1,4 +1,4 @@
-(setq-default tool-bar-mode nil)
+(tool-bar-mode -1)
 (setq c-basic-offset 2)
 (setq-default indent-tabs-mode nil)
 (setq-default show-trailing-whitespace t)
