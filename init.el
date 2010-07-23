@@ -40,6 +40,7 @@
 (vendor 'lua-mode)
 (vendor 'google-c-style)
 (vendor 'go-mode)
+(vendor 'fsharp)
 
 ;; This must be loaded last due to dependencies
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
