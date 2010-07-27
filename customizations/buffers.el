@@ -11,3 +11,7 @@
 
 (require 'midnight)
 (setq midnight-period (* 3 24 60 60)); 3 days
+
+;; inserts over highlighted regions when you press a key rather than writing at the point.
+;; also allows delete to work on selections made with a keyboard.
+(delete-selection-mode 1)
