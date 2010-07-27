@@ -6,9 +6,9 @@
 
 ; To be able to M-x without meta - yes, this overwrites exiting but
 ; I don't care because I quit Apple style
-(global-set-key (kbd "C-x C-c") 'execute-extended-command)
-(global-set-key (kbd "C-x c") 'execute-extended-command)
-(global-set-key (kbd "C-x m") 'execute-extended-command)
+;; (global-set-key (kbd "C-x C-c") 'execute-extended-command)
+;; (global-set-key (kbd "C-x c") 'execute-extended-command)
+;; (global-set-key (kbd "C-x m") 'execute-extended-command)
 
 ; open file
 (global-set-key [(super o)] 'find-file)

@@ -1,4 +1,4 @@
-(setq-default tool-bar-mode nil)
+(tool-bar-mode -1)
 (setq c-basic-offset 2)
 (setq-default indent-tabs-mode nil)
 (setq-default show-trailing-whitespace t)
@@ -8,7 +8,9 @@
 (icomplete-mode 1)
 
 ;; Default font is Deja Vu Sans Mono, 18pt.
-(set-default-font "-apple-deja vu sans mono-medium-r-normal--18-140-72-72-m-140-iso10646-1")
+(if (string-equal system-type "gnu/linux")
+  (set-default-font "-unknown-DejaVu Sans Mono-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1")
+  (set-default-font "-apple-deja vu sans mono-medium-r-normal--14-140-72-72-m-140-iso10646-1"))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

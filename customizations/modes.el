@@ -15,15 +15,6 @@
 (defvar backup-dir (concat "/tmp/emacs_backups/" (user-login-name) "/"))
 (setq backup-directory-alist (list (cons "." backup-dir)))
 
-;; .bashrc should open in sh mode
-(setq auto-mode-alist (cons '("\\.bashrc" . sh-mode) auto-mode-alist))
-
-;; .js should be in javascript mode
-(setq auto-mode-alist (cons '("\\.js" . js2-mode) auto-mode-alist))
-
-;; .yml is yaml, dudes
-(setq auto-mode-alist (cons '("\\.yml" . yaml-mode) auto-mode-alist))
-
 ;; browsing
 (require 'ido)
 (ido-mode t)
@@ -48,26 +39,13 @@
 ;; gist integration
 (require 'gist)
 
-;; clojure-mode
-(require 'clojure-mode)
 
-;; swank-clojure
-;;; These calls to vendor are sensitive and should not be moved back to init.el
-(vendor 'swank-clojure)
-(require 'swank-clojure-autoload)
-(swank-clojure-config
- (setq swank-clojure-jar-path "~/local/src/clojure/clojure.jar")
- (setq swank-clojure-extra-classpaths
-       (list "~/local/src/clojure/clojure-contrib.jar")))
+;; (add-to-list 'load-path "~/../swank-clojure")
+;; (add-to-list 'load-path "~/../slime/contrib")
+;; (add-to-list 'load-path "~/../slime")
+;; (require 'slime)
 
-;; slime
-(eval-after-load "slime"
-  '(progn (slime-setup '(slime-repl))))
-
-(vendor 'slime)
-(require 'slime)
-(slime-setup)
-;; end sensitivity.
+(autoload 'clojure-mode "clojure-mode" "foo" t)
 
 
 ;; incanter
@@ -93,27 +71,16 @@
 
 ;; textile-mode
 (load "textile-mode")
-(add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
 
 ;; SML-mode
 (autoload 'sml-mode "sml-mode" "Major mode for editing SML." t)
 (autoload 'run-sml "sml-proc" "Run an inferior SML process." t)
-
-(add-to-list 'auto-mode-alist '("\\.\\(sml\\|sig\\)\\'" . sml-mode))
-
-;; tuareg-mode for Caml Light
-(add-to-list 'auto-mode-alist '("\\.ml\\'" . tuareg-mode))
 
 ;; ruby
 ;; based on http://www.rubygarden.org/Ruby/page/show/InstallingEmacsExtensions
 
 (autoload 'ruby-mode "ruby-mode"
   "Mode for editing ruby source files")
-
-(add-to-list 'auto-mode-alist '("\\.rb$"  . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.pp$"  . ruby-mode)) ; for puppet
-(add-to-list 'auto-mode-alist '("Capfile" . ruby-mode))
-(add-to-list 'auto-mode-alist '("capfile" . ruby-mode))
 
 (add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
 
@@ -142,8 +109,24 @@
 (global-smart-tab-mode 1)
 (setq smart-tab-using-hippie-expand nil)
 
-; lua-mode
-(setq auto-mode-alist (cons '("\\.lua$" . lua-mode) auto-mode-alist))
+(setq my-modes
+  '(("\\.bashrc"  . sh-mode)
+    ("\\.js"      . js2-mode)
+    ("\\.yml"     . yaml-mode)
+    ("\\.spde"    . scala-mode)
+    ("\\.clj"     . clojure-mode)
+    ("\\.textile" . textile-mode)
+    ("\\.sml"     . tuareg-mode)
+    ("\\.sig"     . tuareg-mode)
+    ("\\.ml"      . tuareg-mode)
+    ("\\.rb"      . ruby-mode)
+    ("\\.pp"      . ruby-mode)
+    ("Capfile"    . ruby-mode)
+    ("capfile"    . ruby-mode)
+    ("\\.lua"     . lua-mode)
+    ("\\.f$"      . forth-mode)))
 
-; forth-mode
-(setq auto-mode-alist (cons '("\\.f$" . forth-mode) auto-mode-alist))
+(mapc (lambda (item)
+        (add-to-list 'auto-mode-alist item))
+      my-modes)
+
