@@ -43,6 +43,7 @@
 (vendor 'go-mode)
 (vendor 'fsharp)
 (vendor 'csharp-mode)
+(vendor 'clojure-mode)
 
 ;; This must be loaded last due to dependencies
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
