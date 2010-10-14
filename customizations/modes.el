@@ -111,7 +111,8 @@
 
 (setq my-modes
   '(("\\.bashrc"  . sh-mode)
-    ("\\.js"      . js2-mode)
+    ("\\.js$"     . js-mode)
+    ("\\.json$"   . js-mode)
     ("\\.yml"     . yaml-mode)
     ("\\.spde"    . scala-mode)
     ("\\.clj"     . clojure-mode)
@@ -130,3 +131,15 @@
         (add-to-list 'auto-mode-alist item))
       my-modes)
 
+
+;; Load the ensime lisp code...
+(add-to-list 'load-path "~/.emacs.d/utilities/ensime/elisp")
+(require 'ensime)
+
+;; This step causes the ensime-mode to be started whenever
+;; scala-mode is started for a buffer. You may have to customize this step
+;; if you're not using the standard scala mode.
+(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+
+;; MINI HOWTO:
+;; Open .scala file. M-x ensime (once per project)
