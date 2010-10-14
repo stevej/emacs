@@ -131,9 +131,8 @@
         (add-to-list 'auto-mode-alist item))
       my-modes)
 
-
 ;; Load the ensime lisp code...
-(add-to-list 'load-path "~/.emacs.d/utilities/ensime/elisp")
+(add-to-list 'load-path "/Users/stevej/local/ensime_2.8.0-0.3.0/elisp/")
 (require 'ensime)
 
 ;; This step causes the ensime-mode to be started whenever

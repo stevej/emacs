@@ -60,7 +60,9 @@
  '(column-number-mode t)
  '(quack-programs (quote ("/Users/stevej/bin/mzscheme" "bigloo" "csi" "csi -hygienic" "gosh" "gsi" "gsi ~~/syntax-case.scm -" "guile" "kawa" "mit-scheme" "mred -z" "mzscheme" "mzscheme -il r6rs" "mzscheme -il typed-scheme" "mzscheme -M errortrace" "mzscheme3m" "mzschemecgc" "rs" "scheme" "scheme48" "scsh" "sisc" "stklos" "sxi")))
  '(quack-remap-find-file-bindings-p nil)
- '(show-paren-mode t))
+ '(show-paren-mode t)
+ '(ensime-sbt-program-name "/Users/stevej/bin/sbt")
+ )
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
