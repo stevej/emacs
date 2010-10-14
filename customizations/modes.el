@@ -18,7 +18,7 @@
 ;; browsing
 (require 'ido)
 (ido-mode t)
-(setq ido-enable-flex-matching t) ; fuzzy matching is a must have
+;;(setq ido-enable-flex-matching t) ; fuzzy matching is a must have
 
 ;; This tab override shouldn't be necessary given ido's default
 ;; configuration, but minibuffer-complete otherwise dominates the
@@ -141,3 +141,7 @@
 
 ;; MINI HOWTO:
 ;; Open .scala file. M-x ensime (once per project)
+
+;; allows me to use emacs-client correctly.
+;; export EDITOR=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
+(server-start)
