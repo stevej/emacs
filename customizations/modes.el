@@ -111,7 +111,8 @@
 
 (setq my-modes
   '(("\\.bashrc"  . sh-mode)
-    ("\\.js"      . js2-mode)
+    ("\\.js$"     . js-mode)
+    ("\\.json$"   . js-mode)
     ("\\.yml"     . yaml-mode)
     ("\\.spde"    . scala-mode)
     ("\\.clj"     . clojure-mode)
