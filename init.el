@@ -44,6 +44,7 @@
 (vendor 'fsharp)
 (vendor 'csharp-mode)
 (vendor 'clojure-mode)
+(vendor 'http-twiddle)
 
 ;; This must be loaded last due to dependencies
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
