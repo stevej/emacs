@@ -132,7 +132,7 @@
       my-modes)
 
 ;; Load the ensime lisp code...
-(add-to-list 'load-path "/Users/stevej/local/ensime_2.8.0-0.3.0/elisp/")
+(add-to-list 'load-path "/Users/stevej/local/ensime_2.8.1.RC3-0.3.7/elisp/")
 (require 'ensime)
 
 ;; This step causes the ensime-mode to be started whenever
@@ -146,3 +146,7 @@
 ;; allows me to use emacs-client correctly.
 ;; export EDITOR=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
 (server-start)
+
+
+;; tramp
+(setq tramp-default-method "ssh")
