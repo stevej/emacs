@@ -43,8 +43,8 @@
 (defvar piglatin-mode-syntax-table
   (let ((piglatin-mode-syntax-table (make-syntax-table)))
     (modify-syntax-entry ?_ "w" piglatin-mode-syntax-table)
-    (modify-syntax-entry ?/ ". 1456" piglatin-mode-syntax-table)
-    (modify-syntax-entry ?* ". 23" piglatin-mode-syntax-table)
+    ;(modify-syntax-entry ?/ ". 1456" piglatin-mode-syntax-table)
+    ;(modify-syntax-entry ?* ". 23" piglatin-mode-syntax-table)
     (modify-syntax-entry ?\n "> b" piglatin-mode-syntax-table)
     piglatin-mode-syntax-table)
   "Syntax table for piglatin-mode")
