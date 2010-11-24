@@ -147,3 +147,7 @@
 ;; allows me to use emacs-client correctly.
 ;; export EDITOR=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
 (server-start)
+
+
+;; tramp
+(setq tramp-default-method "ssh")
