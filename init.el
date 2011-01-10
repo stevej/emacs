@@ -46,6 +46,7 @@
 (vendor 'clojure-mode)
 (vendor 'http-twiddle)
 (vendor 'piglatin-mode)
+(vendor 'anything)
 
 ;; This must be loaded last due to dependencies
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
