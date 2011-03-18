@@ -151,3 +151,5 @@
 
 ;; tramp
 (setq tramp-default-method "ssh")
+
+(load-file "/Users/stevej/src/groc/emacs/groc.el")
