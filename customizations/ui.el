@@ -9,8 +9,8 @@
 
 ;; Default font is Deja Vu Sans Mono, 18pt.
 (if (string-equal system-type "gnu/linux")
-  (set-default-font "-unknown-DejaVu Sans Mono-medium-normal-normal-*-18-*-*-*-m-0-iso10646-1")
-  (set-default-font "-apple-deja vu sans mono-medium-r-normal--18-140-72-72-m-140-iso10646-1"))
+  (set-default-font "-unknown-DejaVu Sans Mono-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1")
+  (set-default-font "-apple-deja vu sans mono-medium-r-normal--12-140-72-72-m-140-iso10646-1"))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
