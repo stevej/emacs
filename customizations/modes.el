@@ -124,6 +124,8 @@
     ("\\.pp"      . ruby-mode)
     ("Capfile"    . ruby-mode)
     ("capfile"    . ruby-mode)
+    ("Rakfile"    . ruby-mode)
+    ("rakefile"   . ruby-mode)
     ("\\.lua"     . lua-mode)
     ("\\.fs"      . fsharp-mode)
     ("\\.f$"      . forth-mode)))
@@ -152,4 +154,7 @@
 ;; tramp
 (setq tramp-default-method "ssh")
 
-(load-file "/Users/stevej/src/groc/emacs/groc.el")
+;; load groc if we have it around
+(let* ((groc "/Users/stevej/src/groc/emacs/groc.el"))
+  (if (file-exists-p groc)
+      (load-file groc)))
