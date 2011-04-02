@@ -33,7 +33,7 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
         (background-mode . ,mode))
        ;; basic faces
        (default ((t (:foreground ,base0))))
-       (cursor ((t (:foreground ,base0 :background ,base03 :inverse-video t))))
+       ;;(cursor ((t (:foreground ,base0 :background ,base03 :inverse-video t))))
        (escape-glyph-face ((t (:foreground ,red))))
        (fringe ((t (:foreground ,base01 :background ,base02))))
        (header-line ((t (:foreground ,base0 :background ,base2))))
