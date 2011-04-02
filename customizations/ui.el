@@ -13,13 +13,13 @@
 
 ;; Default font is Deja Vu Sans Mono, 18pt.
 (if (string-equal system-type "gnu/linux")
-  (set-default-font "-unknown-DejaVu Sans Mono-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1")
-  (set-default-font "-apple-deja vu sans mono-medium-r-normal--12-140-72-72-m-140-iso10646-1"))
+    (set-default-font "-unknown-DejaVu Sans Mono-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1")
+  (set-default-font "-apple-menlo-medium-r-normal--16-140-72-72-m-140-iso10646-1"))
 
 (require 'color-theme)
 (setq color-theme-is-global t)
-(load-file "~/.emacs.d/themes/color-theme-twilight.el")
-(color-theme-twilight)
+(load-file "~/.emacs.d/themes/color-theme-solarized.el")
+(color-theme-solarized-dark)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
