@@ -1,4 +1,5 @@
 (tool-bar-mode -1)
+(scroll-bar-mode -1)
 (setq c-basic-offset 2)
 (setq-default indent-tabs-mode nil)
 (setq-default show-trailing-whitespace t)
@@ -7,10 +8,18 @@
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 (icomplete-mode 1)
 
+; force new frames into existing window
+(setq ns-pop-up-frames nil)
+
 ;; Default font is Deja Vu Sans Mono, 18pt.
 (if (string-equal system-type "gnu/linux")
   (set-default-font "-unknown-DejaVu Sans Mono-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1")
   (set-default-font "-apple-deja vu sans mono-medium-r-normal--12-140-72-72-m-140-iso10646-1"))
+
+(require 'color-theme)
+(setq color-theme-is-global t)
+(load-file "~/.emacs.d/themes/blackboard.el")
+(color-theme-blackboard)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

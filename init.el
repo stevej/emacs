@@ -11,6 +11,7 @@
 (add-to-list 'load-path "~/.emacs.d/utilities/ert")
 (add-to-list 'load-path "~/.emacs.d/utilities/jump")
 (add-to-list 'load-path "~/.emacs.d/vendor")
+(add-to-list 'load-path "~/.emacs.d/themes")
 
 (load "~/.emacs.d/load-directory.el")
 (mapcar 'load-directory '("~/.emacs.d/utilities"))
@@ -47,6 +48,7 @@
 (vendor 'http-twiddle)
 (vendor 'piglatin-mode)
 (vendor 'anything)
+(vendor 'color-theme)
 
 ;; This must be loaded last due to dependencies
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
