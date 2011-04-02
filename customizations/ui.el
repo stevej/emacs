@@ -18,8 +18,8 @@
 
 (require 'color-theme)
 (setq color-theme-is-global t)
-(load-file "~/.emacs.d/themes/blackboard.el")
-(color-theme-blackboard)
+(load-file "~/.emacs.d/themes/color-theme-twilight.el")
+(color-theme-twilight)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
