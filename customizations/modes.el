@@ -135,7 +135,7 @@
       my-modes)
 
 ;; Load the ensime lisp code...
-(add-to-list 'load-path "/Users/stevej/src/ensime/src/main/elisp")
+(add-to-list 'load-path "/Users/stevej/local/ensime/elisp")
 (require 'ensime)
 
 ;; This step causes the ensime-mode to be started whenever
