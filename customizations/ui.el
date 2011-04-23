@@ -11,6 +11,9 @@
 ; force new frames into existing window
 (setq ns-pop-up-frames nil)
 
+;;disable splash screen and startup message
+(setq inhibit-startup-message t)
+
 ;; Default font is Deja Vu Sans Mono, 18pt.
 (if (string-equal system-type "gnu/linux")
     (set-default-font "-unknown-DejaVu Sans Mono-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1")
