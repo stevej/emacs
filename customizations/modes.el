@@ -61,6 +61,7 @@
 
 ;; scala-mode
 (require 'scala-mode-auto)
+(define-key scala-mode-map (kbd "M-q") 'c-fill-paragraph)
 (require 'font-lock)
 
 ;; building scala with sbt
