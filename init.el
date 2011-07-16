@@ -49,6 +49,7 @@
 (vendor 'piglatin-mode)
 (vendor 'anything)
 (vendor 'color-theme)
+(vendor 'verilog-mode)
 
 ;; This must be loaded last due to dependencies
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
