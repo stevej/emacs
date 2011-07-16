@@ -130,6 +130,13 @@
 	  (+ (current-indentation) scala-mode-indent:step))
       (current-column))))
 
+(defun scala-goto-block-start (block-start)
+  (goto-char block-start)
+  (end-of-line)
+  (if (scala-looking-at-backward scala-expr-start-re)
+      (goto-char (1+ (+ (current-indentation) scala-mode-indent:step)))
+    (goto-char (1+ block-start))))
+
 (defun scala-indentation-from-following ()
   ;; Return suggested indentation based on the following part of the
   ;; current expression. Return nil if indentation cannot be guessed.
@@ -139,7 +146,7 @@
      ((eobp) nil)
      ((= (char-syntax (char-after)) ?\))
       (let ((parse-sexp-ignore-comments t))
-        (goto-char (1+ (scan-sexps (1+ (point)) -1))))
+        (scala-goto-block-start (scan-sexps (1+ (point)) -1)))
       (- (scala-block-indentation) scala-mode-indent:step))
      ((looking-at scala-expr-middle-re)
       ;; [...] this is a somewhat of a hack.
@@ -174,7 +181,7 @@
            (block-start (nth 1 state)))
       (if (not block-start)
           0
-        (goto-char (1+ block-start))
+        (scala-goto-block-start block-start)
         (scala-block-indentation)))))
 
 (defun scala-indent-line-to (column)
