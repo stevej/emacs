@@ -53,3 +53,5 @@
 (set-face-attribute 'magit-diff-file-header nil :foreground "RoyalBlue1")
 (set-face-attribute 'magit-diff-hunk-header nil :foreground "RoyalBlue1")
 (set-face-attribute 'magit-item-highlight nil :background "#eeeeee")
+
+(setq-default line-spacing 2)
