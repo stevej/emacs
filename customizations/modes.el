@@ -159,3 +159,8 @@
 (let* ((groc "/Users/stevej/src/groc/emacs/groc.el"))
   (if (file-exists-p groc)
       (load-file groc)))
+
+;; Deft setup.
+(setq deft-extension "textile")
+(setq deft-directory "~/Documents/deft")
+(setq deft-text-mode 'textile-mode)
