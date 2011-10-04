@@ -162,5 +162,5 @@
 
 ;; Deft setup.
 (setq deft-extension "textile")
-(setq deft-directory "~/Documents/deft")
+(setq deft-directory "~/Documents/deft/")
 (setq deft-text-mode 'textile-mode)
