@@ -6,8 +6,8 @@
 (load "haskell-site-file")
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-;; (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-ghci)
+(require 'inf-haskell)
 
 ;; Put backup files (ie foo~) in one place too. (The backup-directory-alist
 ;; list contains regexp=>directory mappings; filenames matching a regexp are
