@@ -51,6 +51,7 @@
 (vendor 'color-theme)
 (vendor 'verilog-mode)
 (vendor 'deft)
+(vendor 'scion)
 
 ;; This must be loaded last due to dependencies
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
