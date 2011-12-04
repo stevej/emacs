@@ -16,43 +16,43 @@
 (load "~/.emacs.d/load-directory.el")
 (mapcar 'load-directory '("~/.emacs.d/utilities"))
 
-(vendor 'rust-mode)
-(vendor 'haskell-mode)
-(vendor 'textmate)
-(vendor 'configgy-mode)
-(vendor 'magit)
-(vendor 'incanter)
-(vendor 'scala-mode)
-(vendor 'thrift-mode)
-(vendor 'sml-mode)
-(vendor 'ruby-mode)
-(vendor 'rinari)
-(vendor 'nxml-mode)
-(vendor 'textile-mode)
-(vendor 'full-ack)
-(vendor 'nav)
-(vendor 'js2-mode)
-(vendor 'yaml-mode)
-(vendor 'smart-tab)
-;;(vendor 'tea)
-(vendor 'tuareg)
-(vendor 'quack)
-(vendor 'jasmin)
-(vendor 'forth-mode)
-(vendor 'lua-mode)
-(vendor 'google-c-style)
-(vendor 'io-mode)
-(vendor 'go-mode)
-(vendor 'fsharp)
-(vendor 'csharp-mode)
-(vendor 'clojure-mode)
-(vendor 'http-twiddle)
-(vendor 'piglatin-mode)
 (vendor 'anything)
+(vendor 'clojure-mode)
 (vendor 'color-theme)
-(vendor 'verilog-mode)
+(vendor 'configgy-mode)
+(vendor 'csharp-mode)
 (vendor 'deft)
+(vendor 'forth-mode)
+(vendor 'fsharp)
+(vendor 'full-ack)
+(vendor 'go-mode)
+(vendor 'google-c-style)
+(vendor 'haskell-mode)
+(vendor 'http-twiddle)
+(vendor 'incanter)
+(vendor 'io-mode)
+(vendor 'jasmin)
+(vendor 'js2-mode)
+(vendor 'lua-mode)
+(vendor 'magit)
+(vendor 'nav)
+(vendor 'nxml-mode)
+(vendor 'piglatin-mode)
+(vendor 'quack)
+(vendor 'rinari)
+(vendor 'ruby-mode)
+(vendor 'rust-mode)
+(vendor 'scala-mode)
 (vendor 'scion)
+(vendor 'smart-tab)
+(vendor 'sml-mode)
+;;(vendor 'tea)
+(vendor 'textile-mode)
+(vendor 'textmate)
+(vendor 'thrift-mode)
+(vendor 'tuareg)
+(vendor 'verilog-mode)
+(vendor 'yaml-mode)
 
 ;; This must be loaded last due to dependencies
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
@@ -61,22 +61,23 @@
                              (- (+ hi lo) (+ (first *emacs-load-start*) (second
                              *emacs-load-start*)))))
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  '(blink-cursor-mode t)
  '(column-number-mode t)
  '(ensime-sbt-program-name "/Users/stevej/bin/sbt")
  '(js2-basic-offset 2)
  '(quack-programs (quote ("/Users/stevej/bin/mzscheme" "bigloo" "csi" "csi -hygienic" "gosh" "gsi" "gsi ~~/syntax-case.scm -" "guile" "kawa" "mit-scheme" "mred -z" "mzscheme" "mzscheme -il r6rs" "mzscheme -il typed-scheme" "mzscheme -M errortrace" "mzscheme3m" "mzschemecgc" "rs" "scheme" "scheme48" "scsh" "sisc" "stklos" "sxi")))
  '(quack-remap-find-file-bindings-p nil)
+ '(safe-local-variable-values (quote ((buffer-file-coding-system . utf-8-unix) (ruby-compilation-executable . "ruby") (ruby-compilation-executable . "ruby1.8") (ruby-compilation-executable . "ruby1.9") (ruby-compilation-executable . "rbx") (ruby-compilation-executable . "jruby"))))
  '(show-paren-mode t))
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  '(diff-added ((t (:foreground "#559944"))))
  '(diff-context ((t nil)))
  '(diff-file-header ((((class color) (min-colors 88) (background dark)) (:foreground "RoyalBlue1"))))
