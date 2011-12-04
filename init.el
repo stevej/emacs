@@ -16,6 +16,7 @@
 (load "~/.emacs.d/load-directory.el")
 (mapcar 'load-directory '("~/.emacs.d/utilities"))
 
+(vendor 'rust-mode)
 (vendor 'haskell-mode)
 (vendor 'textmate)
 (vendor 'configgy-mode)

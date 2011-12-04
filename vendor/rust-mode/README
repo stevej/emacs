@@ -1,0 +1,20 @@
+A major emacs mode for editing Rust [1] source code.
+
+[1] http://rust-lang.org
+
+To install, check out this repository and add this to your .emacs
+file:
+
+    (add-to-list 'load-path "/path/to/rust-mode/")
+    (require 'rust-mode)
+
+Make sure you byte-compile the .el files first, or the mode will be
+painfully slow. If you don't know how, paste this in your *scratch*
+buffer, move the cursor below it, and press C-j.
+
+    (progn
+      (byte-compile-file "/path/to/rust-mode/cm-mode.el" t)
+      (byte-compile-file "/path/to/rust-mode/rust-mode.el" t))
+
+Rust mode will automatically be associated with .rs and .rc files. To
+enable it explicitly, do M-x rust-mode.
