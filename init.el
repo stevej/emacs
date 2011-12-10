@@ -22,6 +22,7 @@
 (vendor 'configgy-mode)
 (vendor 'csharp-mode)
 (vendor 'deft)
+(vendor 'emacsd-tile)
 (vendor 'forth-mode)
 (vendor 'fsharp)
 (vendor 'full-ack)
