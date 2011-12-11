@@ -164,3 +164,5 @@
 (setq deft-extension "textile")
 (setq deft-directory "~/Documents/deft/")
 (setq deft-text-mode 'textile-mode)
+
+(add-hook 'python-mode-hook 'guess-style-guess-all)

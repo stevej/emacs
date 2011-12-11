@@ -28,6 +28,7 @@
 (vendor 'full-ack)
 (vendor 'go-mode)
 (vendor 'google-c-style)
+(vendor 'guess-style)
 (vendor 'haskell-mode)
 (vendor 'http-twiddle)
 (vendor 'incanter)
