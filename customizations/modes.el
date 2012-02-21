@@ -125,7 +125,7 @@
     ("\\.pp"      . ruby-mode)
     ("Capfile"    . ruby-mode)
     ("capfile"    . ruby-mode)
-    ("Rakfile"    . ruby-mode)
+    ("Rakefile"   . ruby-mode)
     ("rakefile"   . ruby-mode)
     ("\\.lua"     . lua-mode)
     ("\\.fs"      . fsharp-mode)
