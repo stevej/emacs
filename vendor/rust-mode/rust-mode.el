@@ -1,311 +1,307 @@
-;;; rust-mode.el --- CC Mode derived mode for rust.
+;;; rust-mode.el --- A major emacs mode for editing Rust source code
 
-;; Author:     Graydon Hoare
-;; Maintainer: Graydon Hoare
-;; Created:    April 2009
-;; Version:    See cc-mode.el
-;; Keywords:   c languages
+;; Version: 0.1.0
+;; Author: Mozilla
+;; Package-Requires: ((cm-mode "0.1.0"))
+;; Url: https://github.com/mozilla/rust
 
-;; This program is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation; either version 2 of the License, or
-;; (at your option) any later version.
-;;
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
-;;
-;; You should have received a copy of the GNU General Public License
-;; along with this program; see the file COPYING.  If not, write to
-;; the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-;; Boston, MA 02111-1307, USA.
-
-;;; Commentary:
-
-;; This is a derived CC mode for the rust language, partly a
-;; copy-and-paste job from
-;; http://cc-mode.sourceforge.net/derived-mode-ex.el
-;;
-;; With further modifications by guesswork and looking through the
-;; cc-langs.el file in the CC-mode distribution to get an idea for
-;; the keyword/symbol classes.
-
-;; Note: The interface used in this file requires CC Mode 5.30 or
-;; later.
-
-;;; Code:
-
+(require 'cm-mode)
 (require 'cc-mode)
 
-;; These are only required at compile time to get the sources for the
-;; language constants.  (The cc-fonts require and the font-lock
-;; related constants could additionally be put inside an
-;; (eval-after-load "font-lock" ...) but then some trickery is
-;; necessary to get them compiled.)
-(eval-when-compile
-  (require 'cc-langs)
-  (require 'cc-fonts))
+(defun rust-electric-brace (arg)
+  (interactive "*P")
+  (self-insert-command (prefix-numeric-value arg))
+  (when (and c-electric-flag
+             (not (member (get-text-property (point) 'face)
+                          '(font-lock-comment-face font-lock-string-face))))
+    (cm-indent)))
 
-(eval-and-compile
-  ;; Add rust, fallback to C.
-  (c-add-language 'rust-mode 'c-mode))
+(defvar rust-indent-unit 4)
+(defvar rust-syntax-table (let ((table (make-syntax-table)))
+                            (c-populate-syntax-table table)
+                            table))
 
-;; rust type keywords
-(c-lang-defconst c-primitive-type-kwds
-  rust '("rec" "tup" "vec" "tag"
-         "char" "str"
-         "chan" "port"
-         "task" "mod" "obj"
-         "fn" "iter"
-         "any"
-         "bool" "int" "uint" "float" "big"
-         "i8" "i16" "i32" "i64"
-         "u8" "u16" "u32" "u64"))
+(defun make-rust-state ()
+  (vector 'rust-token-base
+          (list (vector 'top (- rust-indent-unit) nil nil nil))
+          0
+          nil))
+(defmacro rust-state-tokenize (x) `(aref ,x 0))
+(defmacro rust-state-context (x) `(aref ,x 1))
+(defmacro rust-state-indent (x) `(aref ,x 2))
+(defmacro rust-state-last-token (x) `(aref ,x 3))
 
-;; rust has no prefixes for primitives
-(c-lang-defconst c-primitive-type-prefix-kwds
-  rust nil)
+(defmacro rust-context-type (x) `(aref ,x 0))
+(defmacro rust-context-indent (x) `(aref ,x 1))
+(defmacro rust-context-column (x) `(aref ,x 2))
+(defmacro rust-context-align (x) `(aref ,x 3))
+(defmacro rust-context-info (x) `(aref ,x 4))
 
-;; rust has no bitfields
-(c-lang-defconst c-bitfield-kwds
-  rust nil)
+(defun rust-push-context (st type &optional align-column auto-align)
+  (let ((ctx (vector type (rust-state-indent st) align-column
+                     (if align-column (if auto-align t 'unset) nil) nil)))
+    (push ctx (rust-state-context st))
+    ctx))
+(defun rust-pop-context (st)
+  (let ((old (pop (rust-state-context st))))
+    (setf (rust-state-indent st) (rust-context-indent old))
+    old))
+(defun rust-dup-context (st)
+  (let* ((list (rust-state-context st))
+         (dup (copy-sequence (car list))))
+    (setf (rust-state-context st) (cons dup (cdr list)))
+    dup))
 
-(c-lang-defconst c-type-modifier-kwds
-  rust '("abs"
-         "state" "gc"
-         "impure" "unsafe"
-         "const"))
+(defvar rust-operator-chars "-+/%=<>!*&|@~^")
+(defvar rust-punc-chars "()[].,{}:;")
+(defvar rust-value-keywords
+  (let ((table (make-hash-table :test 'equal)))
+    (dolist (word '("mod" "const" "class" "type"
+                    "trait" "struct" "fn" "enum"
+                    "impl"))
+      (puthash word 'def table))
+    (dolist (word '("again" "assert"
+                    "break"
+                    "copy"
+                    "do" "drop"
+                    "else" "export" "extern"
+                    "fail" "for"
+                    "if" "import"
+                    "let" "log" "loop"
+                    "move" "new"
+                    "pure"
+                    "return" "static"
+                    "unchecked" "unsafe"
+                    "while"))
+      (puthash word t table))
+    (puthash "match" 'alt table)
+    (dolist (word '("true" "false")) (puthash word 'atom table))
+    table))
+;; FIXME type-context keywords
 
-;; declarator-block openings
-(c-lang-defconst c-other-block-decl-kwds
-  rust '("mod" "fn" "iter" "tag"))
+(defvar rust-tcat nil "Kludge for multiple returns without consing")
 
-;; type-defining declarators
-(c-lang-defconst c-typedef-decl-kwds
-  rust '("type"))
+(defmacro rust-eat-re (re)
+  `(when (looking-at ,re) (goto-char (match-end 0)) t))
 
-;; declaration modifiers
-(c-lang-defconst c-modifier-kwds
-  rust '("native" "mutable" "@" "&"))
+(defvar rust-char-table
+  (let ((table (make-char-table 'syntax-table)))
+    (macrolet ((def (range &rest body)
+                    `(let ((--b (lambda (st) ,@body)))
+                       ,@(mapcar (lambda (elt)
+	                           (if (consp elt)
+                                       `(loop for ch from ,(car elt) to ,(cdr elt) collect
+                                              (set-char-table-range table ch --b))
+                                     `(set-char-table-range table ',elt --b)))
+                                 (if (consp range) range (list range))))))
+      (def t (forward-char) nil)
+      (def (32 ?\t) (skip-chars-forward " \t") nil)
+      (def ?\" (forward-char)
+           (rust-push-context st 'string (current-column) t)
+           (setf (rust-state-tokenize st) 'rust-token-string)
+           (rust-token-string st))
+      (def ?\' (forward-char)
+           (setf rust-tcat 'atom)
+           (let ((is-escape (eq (char-after) ?\\))
+                 (start (point)))
+             (if (not (rust-eat-until-unescaped ?\'))
+                 'font-lock-warning-face
+               (if (or is-escape (= (point) (+ start 2)))
+                   'font-lock-string-face 'font-lock-warning-face))))
+      (def ?/ (forward-char)
+           (case (char-after)
+             (?/ (end-of-line) 'font-lock-comment-face)
+             (?* (forward-char)
+                 (rust-push-context st 'comment)
+                 (setf (rust-state-tokenize st) 'rust-token-comment)
+                 (rust-token-comment st))
+             (t (skip-chars-forward rust-operator-chars) (setf rust-tcat 'op) nil)))
+      (def ?# (forward-char)
+           (cond ((eq (char-after) ?\[) (forward-char) (setf rust-tcat 'open-attr))
+                 ((rust-eat-re "[a-z_]+") (setf rust-tcat 'macro)))
+           'font-lock-preprocessor-face)
+      (def ((?a . ?z) (?A . ?Z) ?_)
+           (rust-eat-re "[a-zA-Z_][a-zA-Z0-9_]*")
+           (setf rust-tcat 'ident)
+           (if (and (eq (char-after) ?:) (eq (char-after (+ (point) 1)) ?:)
+                    (not (eq (char-after (+ (point) 2)) ?:)))
+               (progn (forward-char 2) 'font-lock-builtin-face)
+             (match-string 0)))
+      (def ((?0 . ?9))
+           (rust-eat-re "0x[0-9a-fA-F_]+\\|0b[01_]+\\|[0-9_]+\\(\\.[0-9_]+\\)?\\(e[+\\-]?[0-9_]+\\)?")
+           (setf rust-tcat 'atom)
+           (rust-eat-re "[iuf][0-9_]*")
+           'font-lock-constant-face)
+      (def ?. (forward-char)
+           (cond ((rust-eat-re "[0-9]+\\(e[+\\-]?[0-9]+\\)?")
+                  (setf rust-tcat 'atom)
+                  (rust-eat-re "f[0-9]+")
+                  'font-lock-constant-face)
+                 (t (setf rust-tcat (char-before)) nil)))
+      (def (?\( ?\) ?\[ ?\] ?\{ ?\} ?: ?\; ?,)
+           (forward-char)
+           (setf rust-tcat (char-before)) nil)
+      (def ?|
+           (skip-chars-forward rust-operator-chars)
+           (setf rust-tcat 'pipe) nil)
+      (def (?+ ?- ?% ?= ?< ?> ?! ?* ?& ?@ ?~)
+           (skip-chars-forward rust-operator-chars)
+           (setf rust-tcat 'op) nil)
+      table)))
 
-;; declarators that refer to other namespaces
-(c-lang-defconst c-ref-list-kwds
-  rust '("use" "auth" "import" "export"))
+(defun rust-token-base (st)
+  (funcall (char-table-range rust-char-table (char-after)) st))
 
-;; ops that are used to form identifiers
-(c-lang-defconst c-identifier-ops
-  rust '((letf-assoc ".")
-         (postfix "[" "]")))
+(defun rust-eat-until-unescaped (ch)
+  (let (escaped)
+    (loop
+     (let ((cur (char-after)))
+       (when (or (eq cur ?\n) (not cur)) (return nil))
+       (forward-char)
+       (when (and (eq cur ch) (not escaped)) (return t))
+       (setf escaped (and (not escaped) (eq cur ?\\)))))))
 
-;; additional declarator keywords
-(c-lang-defconst c-other-decl-kwds
-  rust '("let" "auto"))
+(defun rust-token-string (st)
+  (setf rust-tcat 'atom)
+  (cond ((rust-eat-until-unescaped ?\")
+         (setf (rust-state-tokenize st) 'rust-token-base)
+         (rust-pop-context st))
+        (t (let ((align (eq (char-before) ?\\)))
+             (unless (eq align (rust-context-align (car (rust-state-context st))))
+               (setf (rust-context-align (rust-dup-context st)) align)))))
+  'font-lock-string-face)
 
-;; statement keywords you can stick substatements directly after
-(c-lang-defconst c-block-stmt-1-kwds
-  rust '("self"))
+(defun rust-token-comment (st)
+  (let ((eol (point-at-eol)))
+    (loop
+     (unless (re-search-forward "\\(/\\*\\)\\|\\(\\*/\\)" eol t)
+       (goto-char eol)
+       (return))
+     (if (match-beginning 1)
+         (push (car (rust-state-context st)) (rust-state-context st))
+       (rust-pop-context st)
+       (unless (eq (rust-context-type (car (rust-state-context st))) 'comment)
+         (setf (rust-state-tokenize st) 'rust-token-base)
+         (return))))
+    'font-lock-comment-face))
 
-;; statement keywords you can stick bracketed substatements after
-(c-lang-defconst c-block-stmt-2-kwds
-  rust '("for" "each" "if" "else" "alt" "while" "do" "case"))
+(defun rust-next-block-info (st)
+  (dolist (cx (rust-state-context st))
+    (when (eq (rust-context-type cx) ?\}) (return (rust-context-info cx)))))
 
-;; statement keywords followed by a simple expression
-(c-lang-defconst c-simple-stmt-kwds
-  rust '("ret" "be" "put"
-         "check" "prove" "claim"
-         "log" "in"
-         "yield" "join"
-         "break" "cont"
-         "fail" "drop"))
+(defun rust-token (st)
+  (let ((cx (car (rust-state-context st))))
+    (when (bolp)
+      (setf (rust-state-indent st) (current-indentation))
+      (when (eq (rust-context-align cx) 'unset)
+        (setf (rust-context-align cx) nil)))
+    (setf rust-tcat nil)
+    (let* ((tok (funcall (rust-state-tokenize st) st))
+           (tok-id (or tok rust-tcat))
+           (cur-cx (rust-context-type cx))
+           (cx-info (rust-context-info cx)))
+      (when (stringp tok)
+        (setf tok-id (gethash tok rust-value-keywords nil))
+        (setf tok (cond ((eq tok-id 'atom) 'font-lock-constant-face)
+                        (tok-id 'font-lock-keyword-face)
+                        ((equal (rust-state-last-token st) 'def) 'font-lock-function-name-face)
+                        (t nil))))
+      (when rust-tcat
+        (when (eq (rust-context-align cx) 'unset)
+          (setf (rust-context-align cx) t))
+        (when (eq cx-info 'alt-1)
+          (setf cx (rust-dup-context st))
+          (setf (rust-context-info cx) 'alt-2))
+        (when (and (eq rust-tcat 'pipe) (eq (rust-state-last-token st) ?{))
+          (setf cx (rust-dup-context st))
+          (setf (rust-context-info cx) 'block))
+        (case rust-tcat
+          ((?\; ?,) (when (eq cur-cx 'statement) (rust-pop-context st)))
+          (?\{
+           (when (and (eq cur-cx 'statement) (not (member cx-info '(alt-1 alt-2))))
+             (rust-pop-context st))
+           (when (eq cx-info 'alt-2)
+             (setf cx (rust-dup-context st))
+             (setf (rust-context-info cx) nil))
+           (let ((next-info (rust-next-block-info st))
+                 (newcx (rust-push-context st ?\} (current-column))))
+             (cond ((eq cx-info 'alt-2) (setf (rust-context-info newcx) 'alt-outer))
+                   ((eq next-info 'alt-outer) (setf (rust-context-info newcx) 'alt-inner)))))
+          ((?\[ open-attr)
+           (let ((newcx (rust-push-context st ?\] (current-column))))
+             (when (eq rust-tcat 'open-attr)
+               (setf (rust-context-info newcx) 'attr))))
+          (?\( (rust-push-context st ?\) (current-column))
+               (when (eq (rust-context-info cx) 'attr)
+                 (setf (rust-context-info (car (rust-state-context st))) 'attr)))
+          (?\} (when (eq cur-cx 'statement) (rust-pop-context st))
+               (when (eq (rust-context-type (car (rust-state-context st))) ?})
+                 (rust-pop-context st))
+               (setf cx (car (rust-state-context st)))
+               (when (and (eq (rust-context-type cx) 'statement)
+                          (not (eq (rust-context-info cx) 'alt-2)))
+                 (rust-pop-context st)))
+          (t (cond ((eq cur-cx rust-tcat)
+                    (when (eq (rust-context-info (rust-pop-context st)) 'attr)
+                      (setf tok 'font-lock-preprocessor-face)
+                      (when (eq (rust-context-type (car (rust-state-context st))) 'statement)
+                        (rust-pop-context st))))
+                   ((or (and (eq cur-cx ?\}) (not (eq (rust-context-info cx) 'alt-outer)))
+                        (eq cur-cx 'top))
+                    (rust-push-context st 'statement)))))
+        (setf (rust-state-last-token st) tok-id))
+      (setf cx (car (rust-state-context st)))
+      (when (and (eq tok-id 'alt) (eq (rust-context-type cx) 'statement))
+        (setf (rust-context-info cx) 'alt-1))
+      (when (and (eq (rust-state-last-token st) 'pipe)
+                 (eq (rust-next-block-info st) 'block) (eolp))
+        (when (eq (rust-context-type cx) 'statement) (rust-pop-context st))
+        (setf cx (rust-dup-context st)
+              (rust-context-info cx) nil
+              (rust-context-align cx) nil))
+      (if (eq (rust-context-info cx) 'attr)
+          'font-lock-preprocessor-face
+        tok))))
 
-;; don't do 'case' the way it is in C
-(c-lang-defconst c-case-kwds
-  rust nil)
-
-;; don't do 'case' or 'default' the way it is in C
-(c-lang-defconst c-label-kwds
-  rust nil)
-
-;; don't highlight "struct", "union", "enum" as in C
-(c-lang-defconst c-type-prefix-kwds
-  rust nil)
-
-;; don't highlight "struct", "union", "enum" as in C
-(c-lang-defconst c-type-list-kwds
-  rust nil)
-
-;; don't highlight "struct", "union", "enum" as in C
-(c-lang-defconst c-class-decl-kwds
-  rust '("obj"))
-
-;; don't highlight "extern"
-(c-lang-defconst c-nonsymbol-sexp-kwds
- rust nil)
-
-;; constants
-(c-lang-defconst c-constant-kwds
-  rust '("true" "false"))
-
-;; operators
-(c-lang-defconst c-operators
-  rust '((prefix "#")
-         (right-assoc ".")
-         (postfix "[" "]" "(" ")")
-         (prefix "!" "-")
-         (prefix "++" "--")
-         (postfix "++" "--")
-         (left-assoc "*" "/" "%")
-         (left-assoc "+" "-")
-         (left-assoc "<<" ">>" ">>>")
-         (left-assoc "<" "<=" ">=" ">")
-         (left-assoc "==" "!=")
-         (left-assoc "&" "~" "^" "|")
-         (left-assoc "||" "&&")
-         (left-assoc ",")
-         (left-assoc "=" "*=" "/=" "+=" "-=" "<<=" ">>=" ">>>=" "&=" "|=" "^=")
-         (lett-assoc "<|" "<+" "<-")
-         (prefix "spawn" "thread" "bind" "@")
-         (left-assoc "with" "as")))
-
-;; keywords followed by non-type expressions in parens
-(c-lang-defconst c-paren-nontype-kwds
-  rust '("rec" "tup" "vec" "port" "chan" "meta"))
-
-;; punctuation or paren syntax classes that have syntactic meaning
-(c-lang-defconst c-other-op-syntax-tokens
-  rust '("#" "{" "}" "(" ")" "[" "]" ";" ":" "," "=" "->" "//"))
-
-(c-lang-defconst c-stmt-delim-chars-with-comma
-  rust ";{}")
-
-;; No c preprocessor in rust. The correct way to disable cpp-related
-;; stuff in cc-mode appears to be to set c-opt-cpp-prefix to
-;; nil. Unfortunately this causes font-lock-mode to not work
-;; correctly (highlighting is performed when the buffer is loaded, but
-;; subsequent typing isn't highlighted correctly).  As a hack, I'm
-;; defining the cpp prefix to be an impossible regex, in this case a
-;; word boundary in the middle of a word.
-(c-lang-defconst c-opt-cpp-prefix rust "a\bc")
-
-;; Make comment-region, probably other comment-related stuff use line
-;; comments instead of block comments
-(c-lang-defconst comment-start
-  rust (c-lang-const c-line-comment-starter))
-
-(defcustom rust-font-lock-extra-types nil
-  "*List of extra types (aside from the type keywords) to recognize in
-rust mode.Each list item should be a regexp matching a single identifier.")
-
-(defconst rust-font-lock-keywords-1 (c-lang-const c-matchers-1 rust)
-  "Minimal highlighting for rust mode.")
-
-(defconst rust-font-lock-keywords-2 (c-lang-const c-matchers-2 rust)
-  "Fast normal highlighting for rust mode.")
-
-(defconst rust-font-lock-keywords-3 (c-lang-const c-matchers-3 rust)
-  "Accurate normal highlighting for rust mode.")
-
-(defvar rust-font-lock-keywords rust-font-lock-keywords-3
-  "Default expressions to highlight in rust mode.")
-
-(defvar rust-mode-syntax-table nil
-  "Syntax table used in rust-mode buffers.")
-(or rust-mode-syntax-table
-    (setq rust-mode-syntax-table
-      (funcall (c-lang-const c-make-mode-syntax-table rust))))
-
-(defvar rust-mode-abbrev-table nil
-  "Abbreviation table used in rust-mode buffers.")
-
-(c-define-abbrev-table 'rust-mode-abbrev-table
-  ;; Keywords that if they occur first on a line might alter the
-  ;; syntactic context, and which therefore should trig reindentation
-  ;; when they are completed.
-  (list))
-
-(defvar rust-mode-map (let ((map (c-make-inherited-keymap)))
-              ;; Add bindings which are only useful for rust
-              map)
-  "Keymap used in rust-mode buffers.")
-
-(easy-menu-define rust-menu rust-mode-map "Rust Mode Commands"
-          ;; Can use `rust' as the language for `c-mode-menu'
-          ;; since its definition covers any language.  In
-          ;; this case the language is used to adapt to the
-          ;; nonexistence of a cpp pass and thus removing some
-          ;; irrelevant menu alternatives.
-          (cons "rust" (c-lang-const c-mode-menu rust)))
+(defun rust-indent (st)
+  (let ((cx (car (rust-state-context st)))
+        (parent (cadr (rust-state-context st))))
+    (when (and (eq (rust-context-type cx) 'statement)
+               (or (eq (char-after) ?\}) (looking-at "with \\|{[ 	]*$")))
+      (setf cx parent parent (caddr (rust-state-context st))))
+    (let* ((tp (rust-context-type cx))
+           (closing (eq tp (char-after)))
+           (unit (if (member (rust-context-info cx) '(alt-inner alt-outer))
+                     (/ rust-indent-unit 2) rust-indent-unit))
+           (base (if (and (eq tp 'statement) parent (rust-context-align parent))
+                     (rust-context-column parent) (rust-context-indent cx))))
+      (cond ((eq tp 'comment) base)
+            ((eq tp 'string) (if (rust-context-align cx) (rust-context-column cx) 0))
+            ((eq tp 'statement) (+ base (if (eq (char-after) ?\}) 0 unit)))
+            ((eq (rust-context-align cx) t) (+ (rust-context-column cx) (if closing -1 0)))
+            (t (+ base (if closing 0 unit)))))))
 
 ;;;###autoload
-(add-to-list 'auto-mode-alist '("\\.rs$" . rust-mode))
-(add-to-list 'auto-mode-alist '("\\.rc$" . rust-crate-mode))
+(define-derived-mode rust-mode fundamental-mode "Rust"
+  "Major mode for editing Rust source files."
+  (set-syntax-table rust-syntax-table)
+  (setq major-mode 'rust-mode mode-name "Rust")
+  (run-hooks 'rust-mode-hook)
+  (set (make-local-variable 'indent-tabs-mode) nil)
+  (let ((par "[ 	]*\\(//+\\|\\**\\)[ 	]*$"))
+    (set (make-local-variable 'paragraph-start) par)
+    (set (make-local-variable 'paragraph-separate) par))
+  (set (make-local-variable 'comment-start) "//")
+  (cm-mode (make-cm-mode 'rust-token 'make-rust-state 'copy-sequence 'equal 'rust-indent)))
+
+(define-key rust-mode-map "}" 'rust-electric-brace)
+(define-key rust-mode-map "{" 'rust-electric-brace)
 
 ;;;###autoload
-(defun rust-mode ()
-  "Major mode for editing rust code.
+(progn
+  (add-to-list 'auto-mode-alist '("\\.rs$" . rust-mode))
+  (add-to-list 'auto-mode-alist '("\\.rc$" . rust-mode)))
 
-The hook `c-mode-common-hook' is run with no args at mode
-initialization, then `rust-mode-hook'.
-
-Key bindings:
-\\{rust-mode-map}"
-  (interactive)
-  (kill-all-local-variables)
-  (c-initialize-cc-mode t)
-  (set-syntax-table rust-mode-syntax-table)
-  (setq major-mode 'rust-mode
-    mode-name "rust"
-    local-abbrev-table rust-mode-abbrev-table
-    abbrev-mode t)
-  (use-local-map c-mode-map)
-  ;; `c-init-language-vars' is a macro that is expanded at compile
-  ;; time to a large `setq' with all the language variables and their
-  ;; customized values for our language.
-  (c-init-language-vars rust-mode)
-  ;; `c-common-init' initializes most of the components of a CC Mode
-  ;; buffer, including setup of the mode menu, font-lock, etc.
-  ;; There's also a lower level routine `c-basic-common-init' that
-  ;; only makes the necessary initialization to get the syntactic
-  ;; analysis and similar things working.
-  (c-common-init 'rust-mode)
-  (easy-menu-add rust-menu)
-  (run-hooks 'c-mode-common-hook)
-  (run-hooks 'rust-mode-hook)
-  (c-update-modeline))
-
-(defun rust-crate-mode ()
-  "Major mode for editing rust crate files.
-
-The hook `c-mode-common-hook' is run with no args at mode
-initialization, then `rust-mode-hook'.
-
-Key bindings:
-\\{rust-mode-map}"
-  (interactive)
-  (kill-all-local-variables)
-  (c-initialize-cc-mode t)
-  (set-syntax-table rust-mode-syntax-table)
-  (setq major-mode 'rust-mode
-    mode-name "rust"
-    local-abbrev-table rust-mode-abbrev-table
-    abbrev-mode t)
-  (use-local-map c-mode-map)
-  ;; `c-init-language-vars' is a macro that is expanded at compile
-  ;; time to a large `setq' with all the language variables and their
-  ;; customized values for our language.
-  (c-init-language-vars rust-mode)
-  ;; `c-common-init' initializes most of the components of a CC Mode
-  ;; buffer, including setup of the mode menu, font-lock, etc.
-  ;; There's also a lower level routine `c-basic-common-init' that
-  ;; only makes the necessary initialization to get the syntactic
-  ;; analysis and similar things working.
-  (c-common-init 'rust-mode)
-  (easy-menu-add rust-menu)
-  (run-hooks 'c-mode-common-hook)
-  (run-hooks 'rust-mode-hook)
-  (c-update-modeline))
-
 (provide 'rust-mode)
 
 ;;; rust-mode.el ends here

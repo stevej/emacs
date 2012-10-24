@@ -12,7 +12,7 @@
 ;; Put backup files (ie foo~) in one place too. (The backup-directory-alist
 ;; list contains regexp=>directory mappings; filenames matching a regexp are
 ;; backed up in the corresponding directory. Emacs will mkdir it if necessary.)
-(defvar backup-dir (concat "/tmp/emacs_backups/" (user-login-name) "/"))
+(defvar backup-dir "/tmp/")
 (setq backup-directory-alist (list (cons "." backup-dir)))
 
 ;; browsing
@@ -97,6 +97,9 @@
 ;; uncomment the next line if you want syntax highlighting
 (add-hook 'ruby-mode-hook 'turn-on-font-lock)
 
+(add-hook 'ruby-mode-hook
+          (lambda () (rvm-activate-corresponding-ruby)))
+
 ;; Rinari
 (require 'rinari)
 
@@ -112,11 +115,13 @@
 
 (setq my-modes
   '(("\\.bashrc"  . sh-mode)
+    ("\\.v"       . coq-mode)
     ("\\.js$"     . js-mode)
     ("\\.json$"   . js-mode)
     ("\\.yml"     . yaml-mode)
     ("\\.spde"    . scala-mode)
     ("\\.clj"     . clojure-mode)
+    ("\\.k"       . scheme-mode)
     ("\\.textile" . textile-mode)
     ("\\.sml"     . tuareg-mode)
     ("\\.sig"     . tuareg-mode)
@@ -125,6 +130,7 @@
     ("\\.pp"      . ruby-mode)
     ("Capfile"    . ruby-mode)
     ("capfile"    . ruby-mode)
+    ("Gemfile"    . ruby-mode)
     ("Rakefile"   . ruby-mode)
     ("rakefile"   . ruby-mode)
     ("\\.lua"     . lua-mode)
@@ -165,8 +171,11 @@
 (setq deft-directory "~/Documents/deft/")
 (setq deft-text-mode 'textile-mode)
 
-(add-hook 'python-mode-hook 'guess-style-guess-all)
-(add-hook 'python-mode-hook guess-style-guess-tabs-mode)
-(add-hook 'python-mode-hook (lambda ()
-                              (when indent-tabs-mode
-                                (guess-style-guess-tab-width)))
+(setq rust-indent-unit 2)
+
+(autoload 'coq-mode "coq" "Major mode for editing Coq vernacular." t)
+(autoload 'run-coq "coq-inferior" "Run an inferior Coq process." t)
+(autoload 'run-coq-other-window "coq-inferior"
+  "Run an inferior Coq process in a new window." t)
+(autoload 'run-coq-other-frame "coq-inferior"
+  "Run an inferior Coq process in a new frame." t)
