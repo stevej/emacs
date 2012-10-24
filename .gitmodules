@@ -4,9 +4,6 @@
 [submodule "vendor/magit"]
 	path = vendor/magit
 	url = git://gitorious.org/magit/mainline.git
-[submodule "vendor/rinari"]
-	path = vendor/rinari
-	url = git://github.com/eschulte/rinari.git
 [submodule "utilities/jump"]
 	path = utilities/jump
 	url = git://github.com/eschulte/jump.el.git
