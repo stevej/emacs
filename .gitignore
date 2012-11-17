@@ -2,3 +2,7 @@ auto-save-list
 .#*
 .savehist
 elpa
+abbrev_defs
+ac-comphist.dat
+tramp
+url/
