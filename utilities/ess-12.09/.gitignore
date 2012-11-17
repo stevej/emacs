@@ -1,0 +1,17 @@
+*~
+*.orig
+*#
+*.info
+doc/ess.*
+doc/info/ess.info
+doc/readme.*
+doc/refcard/refcard.*
+*history
+*NEWS
+*VERSION
+*REVISION
+*BACKUP*
+*REMOTE*
+*LOCAL*
+*BASE*
+lisp/*.elc
