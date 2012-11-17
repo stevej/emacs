@@ -179,3 +179,10 @@
   "Run an inferior Coq process in a new window." t)
 (autoload 'run-coq-other-frame "coq-inferior"
   "Run an inferior Coq process in a new frame." t)
+
+;; this trollish wizardry is required for ESS, which I use
+;; to integrate Emacs with R.
+
+(load "~/.emacs.d/utilities/ess-12.09/lisp/ess-site")
+(require 'ess-site)
+(ess-toggle-underscore nil)
