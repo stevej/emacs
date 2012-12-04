@@ -38,6 +38,7 @@
 (vendor 'jasmin)
 (vendor 'js2-mode)
 (vendor 'lua-mode)
+(vendor 'markdown-mode)
 (vendor 'multi-web-mode)
 (vendor 'magit)
 (vendor 'nav)
@@ -58,7 +59,7 @@
 (vendor 'textmate)
 (vendor 'thrift-mode)
 ;(vendor 'two-mode-mode)
-;;(vendor 'tuareg)
+(vendor 'tuareg)
 (vendor 'verilog-mode)
 (vendor 'yaml-mode)
 

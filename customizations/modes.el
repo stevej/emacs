@@ -128,6 +128,8 @@
     ("\\.ml"      . tuareg-mode)
     ("\\.rb"      . ruby-mode)
     ("\\.pp"      . ruby-mode)
+    ("\\.md"      . markdown-mode)
+    ("\\.markdown" . markdown-mode)
     ("Capfile"    . ruby-mode)
     ("capfile"    . ruby-mode)
     ("Gemfile"    . ruby-mode)
