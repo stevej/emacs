@@ -9,6 +9,14 @@
 (setq haskell-program-name "ghci")
 (require 'inf-haskell)
 
+;; this trollish wizardry is required for ESS, which I use
+;; to integrate Emacs with R.
+
+(load "~/.emacs.d/utilities/ess-12.09/lisp/ess-site")
+(require 'ess-site)
+(ess-toggle-underscore nil)
+
+
 ;; Put backup files (ie foo~) in one place too. (The backup-directory-alist
 ;; list contains regexp=>directory mappings; filenames matching a regexp are
 ;; backed up in the corresponding directory. Emacs will mkdir it if necessary.)
@@ -115,6 +123,8 @@
 
 (setq my-modes
   '(("\\.bashrc"  . sh-mode)
+    ("\\.s$"      . nasm-mode) ;; TODO: support other assemblers
+    ("\\.asm$"    . nasm-mode)
     ("\\.v"       . coq-mode)
     ("\\.js$"     . js-mode)
     ("\\.json$"   . js-mode)
@@ -182,9 +192,3 @@
 (autoload 'run-coq-other-frame "coq-inferior"
   "Run an inferior Coq process in a new frame." t)
 
-;; this trollish wizardry is required for ESS, which I use
-;; to integrate Emacs with R.
-
-(load "~/.emacs.d/utilities/ess-12.09/lisp/ess-site")
-(require 'ess-site)
-(ess-toggle-underscore nil)

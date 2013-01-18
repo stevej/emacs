@@ -41,6 +41,7 @@
 (vendor 'markdown-mode)
 (vendor 'multi-web-mode)
 (vendor 'magit)
+(vendor 'nasm-mode)
 (vendor 'nav)
 (vendor 'nxml-mode)
 (vendor 'piglatin-mode)
