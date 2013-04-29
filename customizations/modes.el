@@ -76,15 +76,16 @@
 ;; FIXME: get rng-mode working.
 
 ;; scala-mode
-(require 'scala-mode-auto)
-(define-key scala-mode-map (kbd "M-q") 'c-fill-paragraph)
+;;(require 'scala-mode-auto)
+;;(define-key scala-mode-map (kbd "M-q") 'c-fill-paragraph)
+
 (require 'font-lock)
 
 ;; building scala with sbt
-(load "~/.emacs.d/support/sbt.el")
+;(load "~/.emacs.d/support/sbt.el")
 
 ;; thrift-mode
-(require 'thrift-mode)
+;(require 'thrift-mode)
 
 ;; textile-mode
 (load "textile-mode")
@@ -137,7 +138,6 @@
     ("\\.js$"     . js-mode)
     ("\\.json$"   . js-mode)
     ("\\.yml"     . yaml-mode)
-    ("\\.spde"    . scala-mode)
     ("\\.clj"     . clojure-mode)
     ("\\.k"       . scheme-mode)
     ("\\.textile" . textile-mode)
