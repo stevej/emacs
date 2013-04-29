@@ -2,6 +2,10 @@
 (require 'textmate)
 (textmate-mode t)
 
+;; ProofGeneral
+
+(load-file "~/.emacs.d/utilities/ProofGeneral-4.2/generic/proof-site.el")
+
 ;; haskell-mode
 (load "haskell-site-file")
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
@@ -15,6 +19,7 @@
 (load "~/.emacs.d/utilities/ess-12.09/lisp/ess-site")
 (require 'ess-site)
 (ess-toggle-underscore nil)
+
 
 
 ;; Put backup files (ie foo~) in one place too. (The backup-directory-alist
@@ -46,6 +51,9 @@
 
 ;; gist integration
 (require 'gist)
+
+;; idris
+(require 'idris)
 
 
 ;; (add-to-list 'load-path "~/../swank-clojure")

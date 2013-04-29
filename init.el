@@ -18,6 +18,7 @@
 
 (vendor 'anything)
 (vendor 'clojure-mode)
+(vendor 'coffee-mode)
 (vendor 'color-theme)
 (vendor 'configgy-mode)
 (vendor 'coq)
@@ -33,6 +34,7 @@
 (vendor 'guess-style)
 (vendor 'haskell-mode)
 (vendor 'http-twiddle)
+(vendor 'idris-mode)
 (vendor 'incanter)
 (vendor 'io-mode)
 (vendor 'jasmin)
@@ -44,6 +46,7 @@
 (vendor 'nasm-mode)
 (vendor 'nav)
 (vendor 'nxml-mode)
+(vendor 'peg-mode)
 (vendor 'piglatin-mode)
 (vendor 'quack)
 (vendor 'rinari)
