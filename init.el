@@ -53,7 +53,6 @@
 (vendor 'peg-mode)
 (vendor 'piglatin-mode)
 (vendor 'quack)
-(vendor 'rinari)
 (vendor 'rvm)
 (vendor 'ruby-mode)
 (vendor 'rust-mode)
