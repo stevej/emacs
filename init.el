@@ -5,6 +5,10 @@
 (require 'cl)
 (defvar *emacs-load-start* (current-time))
 
+
+;; FIXME: make this work across OS's
+(add-to-list 'load-path "/Users/stevej/.opam/4.01.0/share/emacs/site-lisp/")
+
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/customizations")
 (add-to-list 'load-path "~/.emacs.d/utilities")
@@ -42,6 +46,7 @@
 (vendor 'markdown-mode)
 (vendor 'multi-web-mode)
 (vendor 'magit)
+(vendor 'mustache-mode)
 (vendor 'nasm-mode)
 (vendor 'nav)
 (vendor 'nxml-mode)
@@ -69,27 +74,32 @@
 ;; This must be loaded last due to dependencies
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
 
+(cond
+ ((eq window-system 'ns) ; macosx
+  ;; Invoke login shells, so that .profile or .bash_profile is read
+  (setq shell-command-switch "-lc")))
+
 (message "My .emacs loaded in %ds" (destructuring-bind (hi lo ms) (current-time)
                              (- (+ hi lo) (+ (first *emacs-load-start*) (second
                              *emacs-load-start*)))))
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(blink-cursor-mode t)
  '(column-number-mode t)
  '(ensime-sbt-program-name "/Users/stevej/bin/sbt")
  '(js2-basic-offset 2)
  '(quack-programs (quote ("klisp" "/Users/stevej/bin/mzscheme" "bigloo" "csi" "csi -hygienic" "gosh" "gsi" "gsi ~~/syntax-case.scm -" "guile" "kawa" "mit-scheme" "mred -z" "mzscheme" "mzscheme -M errortrace" "mzscheme -il r6rs" "mzscheme -il typed-scheme" "mzscheme3m" "mzschemecgc" "rs" "scheme" "scheme48" "scsh" "sisc" "stklos" "sxi")))
  '(quack-remap-find-file-bindings-p nil)
- '(safe-local-variable-values (quote ((buffer-file-coding-system . utf-8-unix) (ruby-compilation-executable . "ruby") (ruby-compilation-executable . "ruby1.8") (ruby-compilation-executable . "ruby1.9") (ruby-compilation-executable . "rbx") (ruby-compilation-executable . "jruby"))))
+ '(safe-local-variable-values (quote ((encoding . utf-8) (buffer-file-coding-system . utf-8-unix) (ruby-compilation-executable . "ruby") (ruby-compilation-executable . "ruby1.8") (ruby-compilation-executable . "ruby1.9") (ruby-compilation-executable . "rbx") (ruby-compilation-executable . "jruby"))))
  '(show-paren-mode t))
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(diff-added ((t (:foreground "#559944"))))
  '(diff-context ((t nil)))
  '(diff-file-header ((((class color) (min-colors 88) (background dark)) (:foreground "RoyalBlue1"))))

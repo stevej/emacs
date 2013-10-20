@@ -31,7 +31,7 @@
 ;; browsing
 (require 'ido)
 (ido-mode t)
-;;(setq ido-enable-flex-matching t) ; fuzzy matching is a must have
+(setq ido-enable-flex-matching t) ; fuzzy matching is a must have
 
 ;; This tab override shouldn't be necessary given ido's default
 ;; configuration, but minibuffer-complete otherwise dominates the
@@ -54,7 +54,6 @@
 
 ;; idris
 (require 'idris)
-
 
 ;; (add-to-list 'load-path "~/../swank-clojure")
 ;; (add-to-list 'load-path "~/../slime/contrib")
@@ -143,7 +142,7 @@
     ("\\.textile" . textile-mode)
     ("\\.sml"     . tuareg-mode)
     ("\\.sig"     . tuareg-mode)
-    ("\\.ml"      . tuareg-mode)
+    ("\\.ml[iylp]?" . tuareg-mode)
     ("\\.rb"      . ruby-mode)
     ("\\.pp"      . ruby-mode)
     ("\\.md"      . markdown-mode)
@@ -200,3 +199,33 @@
 (autoload 'run-coq-other-frame "coq-inferior"
   "Run an inferior Coq process in a new frame." t)
 
+
+;; use utop for our top-level
+;;(autoload 'utop "utop" "Toplevel for OCaml" t)
+;;(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
+;;(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
+;;(add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
+;;(require 'utop)
+
+(setq opam-share
+       (substring (shell-command-to-string "opam config var share") 0 -1))
+
+(load-file (concat opam-share "/typerex/ocp-indent/ocp-indent.el"))
+(load-file (concat opam-share "/typerex/ocp-index/ocp-index.el"))
+
+(push
+ (concat (substring (shell-command-to-string "opam config var share") 0 -1) "/emacs/site-lisp") load-path)
+(setq merlin-command (concat (substring (shell-command-to-string "opam config var bin") 0 -1) "/ocamlmerlin"))
+(autoload 'merlin-mode "merlin" "Merlin mode" t)
+(add-hook 'tuareg-mode-hook 'merlin-mode)
+(add-hook 'caml-mode-hook 'merlin-mode)
+
+(add-hook
+ 'tuareg-mode-hook
+ '(lambda ()
+    (merlin-mode)
+    (setq indent-line-function 'ocp-indent-line)
+    (setq merlin-use-auto-complete-mode t)
+    (local-set-key (kbd "C-S-<up>") 'merlin-type-enclosing-go-up)
+    (local-set-key (kbd "C-S-<down>") 'merlin-type-enclosing-go-down)
+    ))
