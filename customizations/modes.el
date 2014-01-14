@@ -44,7 +44,7 @@
 ;; allow us to look at whitespace
 (require 'whitespace)
 (require 'show-wspace)
-(add-hook 'font-lock-mode-hook 'show-ws-highlight-tabs)
+;(add-hook 'font-lock-mode-hook 'show-ws-highlight-tabs)
 
 ;; relax ng
 (require 'rnc-mode)
@@ -74,14 +74,7 @@
 ;; (load "~/.emacs.d/nxml-mode-20041004/rng-auto.el")
 ;; FIXME: get rng-mode working.
 
-;; scala-mode
-;;(require 'scala-mode-auto)
-;;(define-key scala-mode-map (kbd "M-q") 'c-fill-paragraph)
-
 (require 'font-lock)
-
-;; building scala with sbt
-;(load "~/.emacs.d/support/sbt.el")
 
 ;; thrift-mode
 ;(require 'thrift-mode)
@@ -156,18 +149,6 @@
 (mapc (lambda (item)
         (add-to-list 'auto-mode-alist item))
       my-modes)
-
-;; Load the ensime lisp code...
-(add-to-list 'load-path "/Users/stevej/local/ensime/elisp")
-(require 'ensime)
-
-;; This step causes the ensime-mode to be started whenever
-;; scala-mode is started for a buffer. You may have to customize this step
-;; if you're not using the standard scala mode.
-(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
-
-;; MINI HOWTO:
-;; Open .scala file. M-x ensime (once per project)
 
 ;; allows me to use emacs-client correctly.
 ;; export EDITOR=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient

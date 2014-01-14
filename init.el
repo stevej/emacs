@@ -56,7 +56,6 @@
 (vendor 'rvm)
 (vendor 'ruby-mode)
 (vendor 'rust-mode)
-;(vendor 'scala-mode)
 (vendor 'scion)
 (vendor 'smart-tab)
 (vendor 'smex)
@@ -88,7 +87,6 @@
  ;; If there is more than one, they won't work right.
  '(blink-cursor-mode t)
  '(column-number-mode t)
- '(ensime-sbt-program-name "/Users/stevej/bin/sbt")
  '(js2-basic-offset 2)
  '(quack-programs (quote ("klisp" "/Users/stevej/bin/mzscheme" "bigloo" "csi" "csi -hygienic" "gosh" "gsi" "gsi ~~/syntax-case.scm -" "guile" "kawa" "mit-scheme" "mred -z" "mzscheme" "mzscheme -M errortrace" "mzscheme -il r6rs" "mzscheme -il typed-scheme" "mzscheme3m" "mzschemecgc" "rs" "scheme" "scheme48" "scsh" "sisc" "stklos" "sxi")))
  '(quack-remap-find-file-bindings-p nil)
