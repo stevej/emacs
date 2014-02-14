@@ -1,17 +1,17 @@
 ;; textmate-minor-mode
-;;(require 'textmate)
-;;(textmate-mode t)
+(require 'textmate)
+(textmate-mode t)
 
 ;; ProofGeneral
 
 ;;(load-file "~/.emacs.d/utilities/ProofGeneral-4.2/generic/proof-site.el")
 
 ;; haskell-mode
-;;(load "haskell-site-file")
-;;(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-;;(setq haskell-program-name "ghci")
-;;(require 'inf-haskell)
+(load "haskell-site-file")
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+(setq haskell-program-name "ghci")
+(require 'inf-haskell)
 
 ;; this trollish wizardry is required for ESS, which I use
 ;; to integrate Emacs with R.
@@ -29,9 +29,9 @@
 (setq backup-directory-alist (list (cons "." backup-dir)))
 
 ;; browsing
-;;(require 'ido)
-;;(ido-mode t)
-;;(setq ido-enable-flex-matching t) ; fuzzy matching is a must have
+(require 'ido)
+(ido-mode t)
+(setq ido-enable-flex-matching t)
 
 ;; This tab override shouldn't be necessary given ido's default
 ;; configuration, but minibuffer-complete otherwise dominates the
@@ -42,9 +42,9 @@
    (define-key ido-completion-map [tab] 'ido-complete)))
 
 ;; allow us to look at whitespace
-;;(require 'whitespace)
-;;(require 'show-wspace)
-;(add-hook 'font-lock-mode-hook 'show-ws-highlight-tabs)
+(require 'whitespace)
+(require 'show-wspace)
+(add-hook 'font-lock-mode-hook 'show-ws-highlight-tabs)
 
 ;; relax ng
 ;;(require 'rnc-mode)
@@ -89,35 +89,35 @@
 ;; ruby
 ;; based on http://www.rubygarden.org/Ruby/page/show/InstallingEmacsExtensions
 
-;;(autoload 'ruby-mode "ruby-mode"
-;;  "Mode for editing ruby source files")
+(autoload 'ruby-mode "ruby-mode"
+  "Mode for editing ruby source files")
 
-;;(add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
+(add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
 
-;;(autoload 'run-ruby "inf-ruby"
-;;  "Run an inferior Ruby process")
-;;(autoload 'inf-ruby-keys "inf-ruby"
-;;  "Set local key defs for inf-ruby in ruby-mode")
-;;(add-hook 'ruby-mode-hook
-;;          '(lambda ()
-;;             (inf-ruby-keys)))
+(autoload 'run-ruby "inf-ruby"
+  "Run an inferior Ruby process")
+(autoload 'inf-ruby-keys "inf-ruby"
+  "Set local key defs for inf-ruby in ruby-mode")
+(add-hook 'ruby-mode-hook
+          '(lambda ()
+             (inf-ruby-keys)))
 ;; If you have Emacs 19.2x or older, use rubydb2x
-;;(autoload 'rubydb "rubydb3x" "Ruby debugger" t)
+(autoload 'rubydb "rubydb3x" "Ruby debugger" t)
 ;; uncomment the next line if you want syntax highlighting
-;;(add-hook 'ruby-mode-hook 'turn-on-font-lock)
+(add-hook 'ruby-mode-hook 'turn-on-font-lock)
 
-;;(add-hook 'ruby-mode-hook
-;;          (lambda () (rvm-activate-corresponding-ruby)))
+(add-hook 'ruby-mode-hook
+          (lambda () (rvm-activate-corresponding-ruby)))
 
-;;(autoload 'ack-same "full-ack" nil t)
-;;(autoload 'ack "full-ack" nil t)
-;;(autoload 'ack-find-same-file "full-ack" nil t)
-;;(autoload 'ack-find-file "full-ack" nil t)
+(autoload 'ack-same "full-ack" nil t)
+(autoload 'ack "full-ack" nil t)
+(autoload 'ack-find-same-file "full-ack" nil t)
+(autoload 'ack-find-file "full-ack" nil t)
 
 ; smart-tab
-;;(require 'smart-tab)
-;;(global-smart-tab-mode 1)
-;;(setq smart-tab-using-hippie-expand nil)
+(require 'smart-tab)
+(global-smart-tab-mode 1)
+(setq smart-tab-using-hippie-expand nil)
 
 ;;(setq my-modes
 ;;  '(("\\.bashrc"  . sh-mode)
