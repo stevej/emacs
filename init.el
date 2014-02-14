@@ -51,6 +51,7 @@
 (vendor 'quack)
 (vendor 'ruby-mode)
 (vendor 'rust-mode)
+(vendor 'scala-mode2)
 (vendor 'scion)
 (vendor 'smart-tab)
 (vendor 'smex)
