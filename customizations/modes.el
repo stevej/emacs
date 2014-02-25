@@ -119,21 +119,22 @@
 (global-smart-tab-mode 1)
 (setq smart-tab-using-hippie-expand nil)
 
-;;(setq my-modes
-;;  '(("\\.bashrc"  . sh-mode)
+(setq my-modes
+      '(
+;;  ("\\.bashrc"  . sh-mode)
 ;;    ("\\.s$"      . nasm-mode) ;; TODO: support other assemblers
 ;;    ("\\.asm$"    . nasm-mode)
-;;    ("\\.v"       . coq-mode)
+      ("\\.v"       . coq-mode)
 ;;    ("\\.js$"     . js-mode)
 ;;    ("\\.json$"   . js-mode)
 ;;    ("\\.yml"     . yaml-mode)
 ;;    ("\\.clj"     . clojure-mode)
 ;;    ("\\.k"       . scheme-mode)
 ;;    ("\\.textile" . textile-mode)
-;;    ("\\.sml"     . tuareg-mode)
-;;    ("\\.sig"     . tuareg-mode)
-;;    ("\\.ml[iylp]?" . tuareg-mode)
-;;    ("\\.rb"      . ruby-mode)
+      ("\\.sml"     . tuareg-mode)
+      ("\\.sig"     . tuareg-mode)
+      ("\\.ml[iylp]?" . tuareg-mode)
+      ("\\.rb"      . ruby-mode)
 ;;    ("\\.pp"      . ruby-mode)
 ;;    ("\\.md"      . markdown-mode)
 ;;    ("\\.markdown" . markdown-mode)
@@ -142,13 +143,14 @@
 ;;    ("Gemfile"    . ruby-mode)
 ;;    ("Rakefile"   . ruby-mode)
 ;;    ("rakefile"   . ruby-mode)
-;;    ("\\.lua"     . lua-mode)
+      ("\\.lua"     . lua-mode)
 ;;    ("\\.fs"      . fsharp-mode)
-;;    ("\\.f$"      . forth-mode)))
+      ("\\.f$"      . forth-mode))
+)
 
-;;(mapc (lambda (item)
-;;        (add-to-list 'auto-mode-alist item))
-;;      my-modes)
+(mapc (lambda (item)
+        (add-to-list 'auto-mode-alist item))
+      my-modes)
 
 ;; allows me to use emacs-client correctly.
 ;; export EDITOR=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
