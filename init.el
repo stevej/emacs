@@ -9,7 +9,7 @@
 ;; FIXME: make this work across OS's
 (add-to-list 'load-path "/Users/stevej/.opam/4.01.0/share/emacs/site-lisp/")
 
-(add-to-list 'load-path "~/.emacs.d")
+;; DO NOT ADD .emacs.d to your load-path
 (add-to-list 'load-path "~/.emacs.d/customizations")
 (add-to-list 'load-path "~/.emacs.d/utilities")
 (add-to-list 'load-path "~/.emacs.d/utilities/ert")
@@ -17,7 +17,7 @@
 (add-to-list 'load-path "~/.emacs.d/vendor")
 (add-to-list 'load-path "~/.emacs.d/themes")
 
-(load "~/.emacs.d/load-directory.el")
+(load "~/.emacs.d/utilities/load-directory.el")
 (mapcar 'load-directory '("~/.emacs.d/utilities"))
 
 (vendor 'auto-complete)
@@ -48,6 +48,9 @@
 (vendor 'nxml-mode)
 (vendor 'peg-mode)
 (vendor 'piglatin-mode)
+(vendor 'powerline)
+(vendor 'powerline-themes)
+(vendor 'powerline-separators)
 (vendor 'quack)
 (vendor 'ruby-mode)
 (vendor 'rust-mode)

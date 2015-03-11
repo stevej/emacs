@@ -15,15 +15,32 @@
 ;;disable splash screen and startup message
 (setq inhibit-startup-message t)
 
-;; Default font is Deja Vu Sans Mono, 18pt.
-(if (string-equal system-type "gnu/linux")
-    (set-default-font "-unknown-DejaVu Sans Mono-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1")
-  (set-default-font "-apple-menlo-medium-r-normal--14-140-72-72-m-140-iso10646-1"))
+
+(defun font-existsp (font)
+   "Check to see if the named FONT is available."
+   (if (null (x-list-fonts font))
+       nil t))
+
+
+(cond
+ ((eq window-system nil) nil)
+  ((font-existsp "PragmataPro")
+  (set-face-attribute 'default nil :height 181 :font "PragmataPro"))
+ ((font-existsp "Menlo")
+  (set-face-attribute 'default nil :height 151 :font "Menlo"))
+ ((font-existsp "Consolas")
+  (set-face-attribute 'default nil :height 151 :font "Consolas"))
+ ((font-existsp "Inconsolata")
+  (set-face-attribute 'default nil :height 151 :font "Inconsolata"))
+ )
 
 (require 'color-theme)
 (setq color-theme-is-global t)
 (load-file "~/.emacs.d/themes/color-theme-solarized.el")
 (color-theme-solarized-dark)
+
+
+(powerline-default-theme)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
