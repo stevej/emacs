@@ -52,6 +52,7 @@
 (vendor 'powerline-themes)
 (vendor 'powerline-separators)
 (vendor 'quack)
+(vendor 'racket-mode)
 (vendor 'ruby-mode)
 (vendor 'rust-mode)
 (vendor 'scala-mode2)
@@ -62,10 +63,19 @@
 (vendor 'textile-mode)
 (vendor 'textmate)
 (vendor 'thrift-mode)
+(vendor 'toml-mode)
 (vendor 'two-mode-mode)
 (vendor 'tuareg)
 (vendor 'verilog-mode)
 (vendor 'yaml-mode)
+
+
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/")
+             t)
+
+
 
 ;; This must be loaded last due to dependencies
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
@@ -83,9 +93,19 @@
  '(blink-cursor-mode t)
  '(column-number-mode t)
  '(js2-basic-offset 2)
- '(quack-programs (quote ("klisp" "/Users/stevej/bin/mzscheme" "bigloo" "csi" "csi -hygienic" "gosh" "gsi" "gsi ~~/syntax-case.scm -" "guile" "kawa" "mit-scheme" "mred -z" "mzscheme" "mzscheme -M errortrace" "mzscheme -il r6rs" "mzscheme -il typed-scheme" "mzscheme3m" "mzschemecgc" "rs" "scheme" "scheme48" "scsh" "sisc" "stklos" "sxi")))
+ '(quack-programs
+   (quote
+    ("racket -I scheme" "/Users/stevej/bin/mzscheme" "bigloo" "csi" "csi -hygienic" "gosh" "gsi" "gsi ~~/syntax-case.scm -" "guile" "kawa" "klisp" "mit-scheme" "mred -z" "mzscheme" "mzscheme -M errortrace" "mzscheme -il r6rs" "mzscheme -il typed-scheme" "mzscheme3m" "mzschemecgc" "racket" "racket -I r5rs" "racket -I r6rs" "rs" "scheme" "scheme48" "scsh" "sisc" "stklos" "sxi")))
  '(quack-remap-find-file-bindings-p nil)
- '(safe-local-variable-values (quote ((encoding . utf-8) (buffer-file-coding-system . utf-8-unix) (ruby-compilation-executable . "ruby") (ruby-compilation-executable . "ruby1.8") (ruby-compilation-executable . "ruby1.9") (ruby-compilation-executable . "rbx") (ruby-compilation-executable . "jruby"))))
+ '(safe-local-variable-values
+   (quote
+    ((encoding . utf-8)
+     (buffer-file-coding-system . utf-8-unix)
+     (ruby-compilation-executable . "ruby")
+     (ruby-compilation-executable . "ruby1.8")
+     (ruby-compilation-executable . "ruby1.9")
+     (ruby-compilation-executable . "rbx")
+     (ruby-compilation-executable . "jruby"))))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

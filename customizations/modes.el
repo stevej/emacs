@@ -154,7 +154,7 @@
 
 ;; allows me to use emacs-client correctly.
 ;; export EDITOR=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
-(server-start)
+;;(server-start)
 
 
 ;; tramp
@@ -212,3 +212,6 @@
 ;;   (local-set-key (kbd "C-S-<up>") 'merlin-type-enclosing-go-up)
 ;;    (local-set-key (kbd "C-S-<down>") 'merlin-type-enclosing-go-down)
 ;;    ))
+
+
+(setq scheme-program-name "racket -I r5rs")

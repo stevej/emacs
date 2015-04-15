@@ -22,22 +22,28 @@
        nil t))
 
 
+(setf s-font-size 230)
+
 (cond
  ((eq window-system nil) nil)
-  ((font-existsp "PragmataPro")
-  (set-face-attribute 'default nil :height 181 :font "PragmataPro"))
+ ((font-existsp "PragmataPro")
+  (set-face-attribute 'default nil :height s-font-size :font "PragmataPro")
+  )
  ((font-existsp "Menlo")
-  (set-face-attribute 'default nil :height 151 :font "Menlo"))
+  (set-face-attribute 'default nil :height s-font-size :font "Menlo")
+  )
  ((font-existsp "Consolas")
-  (set-face-attribute 'default nil :height 151 :font "Consolas"))
+  (set-face-attribute 'default nil :height s-font-size :font "Consolas")
+  )
  ((font-existsp "Inconsolata")
-  (set-face-attribute 'default nil :height 151 :font "Inconsolata"))
+  (set-face-attribute 'default nil :height s-font-size :font "Inconsolata")
+  )
  )
 
 (require 'color-theme)
 (setq color-theme-is-global t)
 (load-file "~/.emacs.d/themes/color-theme-solarized.el")
-(color-theme-solarized-dark)
+(color-theme-solarized-light)
 
 
 (powerline-default-theme)
