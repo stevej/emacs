@@ -1,5 +1,4 @@
 ;; set sane exec path before anything else.
-(push "/opt/local/bin" exec-path)
 (push "/usr/local/bin" exec-path)
 
 (require 'cl)
@@ -54,7 +53,7 @@
 (vendor 'quack)
 (vendor 'racket-mode)
 (vendor 'ruby-mode)
-(vendor 'rust-mode)
+;(vendor 'rust-mode)
 (vendor 'scala-mode2)
 (vendor 'scion)
 (vendor 'smart-tab)
@@ -70,10 +69,44 @@
 (vendor 'yaml-mode)
 
 
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/")
-             t)
+
+(setq package-archives
+      '(("ELPA"           . "http://tromey.com/elpa/")
+        ("SC"             . "http://joseito.republika.pl/sunrise-commander/")
+        ("gnu"            . "http://elpa.gnu.org/packages/")
+        ("marmalade"      . "http://marmalade-repo.org/packages/")
+        ("melpa"          . "http://melpa.org/packages/")
+        ("melpa-stable"   . "http://stable.melpa.org/packages/")
+        ("org"            . "http://orgmode.org/elpa/"))
+      package-pinned-packages
+      '((arduino-mode        . "melpa")
+        (company             . "melpa")
+        (company-cabal       . "melpa")
+        (company-ghc         . "melpa")
+        (deft                . "melpa")
+        (flycheck-rust       . "melpa")
+        (gist                . "melpa")
+        (gnuplot             . "melpa")
+        (graphviz-dot-mode   . "melpa")
+        (hamlet-mode         . "melpa")
+        (haskell-emacs       . "melpa")
+        (haskell-mode        . "melpa")
+        (hindent             . "melpa")
+        (ido-ubiquitous      . "melpa")
+        (idris-mode          . "melpa")
+;        (js2-mode            . "melpa")
+;        (markdown-mode       . "melpa")
+;        (paredit             . "melpa")
+        (rainbow-delimiters  . "melpa")
+        (rainbow-identifiers . "melpa")
+;        (rust-mode           . "melpa")
+        (smex                . "melpa")
+;        (textile-mode        . "melpa")
+;        (yaml-mode           . "melpa")
+      el-get-user-packages '(ghc-mod)))
+
+
+(package-initialize t)
 
 
 
@@ -106,7 +139,13 @@
      (ruby-compilation-executable . "ruby1.9")
      (ruby-compilation-executable . "rbx")
      (ruby-compilation-executable . "jruby"))))
- '(show-paren-mode t))
+
+ '(blink-cursor-mode t)
+ '(column-number-mode t)
+ '(show-paren-mode t)
+ '(coq-prog-args '("-I" "/Users/stevej/local/src/cpdt/src"))
+ '(show-paren-mode t)
+ )
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
