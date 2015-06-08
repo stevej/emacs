@@ -4,7 +4,7 @@
 
 ;; ProofGeneral
 
-;;(load-file "~/.emacs.d/utilities/ProofGeneral-4.2/generic/proof-site.el")
+(load-file "~/.emacs.d/utilities/ProofGeneral-4.2/generic/proof-site.el")
 
 ;; haskell-mode
 (load "haskell-site-file")
@@ -62,6 +62,21 @@
 
 ;;(autoload 'clojure-mode "clojure-mode" "foo" t)
 
+;; Rust
+
+
+(defun my-rust-mode-hook ()
+  (setq racer-rust-src-path "~/src/github.com/local/src/rustc-1.0.0/src"
+        racer-cmd "~/local/src/racer/target/release/racer")
+  (add-to-list 'load-path "~/local/src/racer/editors/emacs")
+  (require 'racer))
+
+(add-hook 'rust-mode-hook 'flycheck-mode)
+(add-hook 'rust-mode-hook 'flycheck-rust-setup)
+(add-hook 'rust-mode-hook 'my-rust-mode-hook)
+
+(setq-default tab-always-indent 'complete)
+
 
 ;; incanter
 ;;(load "~/.emacs.d/vendor/incanter.el")
@@ -115,9 +130,9 @@
 (autoload 'ack-find-file "full-ack" nil t)
 
 ; smart-tab
-(require 'smart-tab)
-(global-smart-tab-mode 1)
-(setq smart-tab-using-hippie-expand nil)
+;(require 'smart-tab)
+;(global-smart-tab-mode 1)
+;(setq smart-tab-using-hippie-expand nil)
 
 (setq my-modes
       '(
